@@ -1,22 +1,22 @@
 package be.heh.std.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    @ColumnInfo(name = "lastname")
+    @NonNull
     public String lastname;
-    @ColumnInfo(name = "firstname")
+    @NonNull
     public String firstname;
-    @ColumnInfo(name = "email")
+    @NonNull
     public String email;
-    @ColumnInfo(name = "password")
+    @NonNull
     public String password;
-    @ColumnInfo(name = "role")
-    public int role;
+    @NonNull @ColumnInfo(defaultValue = "BASIC")
+    public String role;
 }

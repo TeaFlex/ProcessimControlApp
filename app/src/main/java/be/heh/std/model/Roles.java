@@ -1,4 +1,4 @@
-package be.heh.std.core;
+package be.heh.std.model;
 
 public enum Roles {
     ADMIN,
