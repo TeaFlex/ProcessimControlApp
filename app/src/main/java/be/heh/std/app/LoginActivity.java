@@ -34,6 +34,7 @@ public class LoginActivity extends FormActivity {
         notEmptyInputs.addAll(Arrays.asList(email, password));
         
         form.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
         info_msg.setText(getString(R.string.need_login));
     }
 

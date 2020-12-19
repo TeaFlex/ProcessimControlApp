@@ -14,7 +14,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#80FFFFFF"
+        android:background="@color/white_tran"
         android:padding="20dp"
         android:layout_marginTop="20dp">
 
@@ -31,8 +31,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_infos"
+            android:background="@color/white"
             >
         </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/modify_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modify"
+                android:onClick="onWelcomeClickManager"/>
+
+            <Button
+                android:id="@+id/chg_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chgpassword"
+                android:onClick="onWelcomeClickManager"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white_tran"
+        android:layout_marginTop="20dp"
+        >
 
     </LinearLayout>
 

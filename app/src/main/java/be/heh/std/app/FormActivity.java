@@ -34,6 +34,7 @@ public abstract class FormActivity extends Activity {
         info_msg = (TextView) findViewById(R.id.info_msg);
         error_msg = (TextView) findViewById(R.id.error_msg);
         notEmptyInputs = new ArrayList<>();
+        title.setVisibility(View.GONE);
     }
 
     public void onFormClickManager(View v) throws Exception {

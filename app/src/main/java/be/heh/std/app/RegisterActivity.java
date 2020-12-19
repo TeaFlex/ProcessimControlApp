@@ -42,6 +42,7 @@ public class RegisterActivity extends FormActivity {
         notEmptyInputs.addAll(Arrays.asList(firstname, lastname, email, password, password2));
 
         form.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
         if(firstTime) {
             info_msg.setText(getString(R.string.need_register));
             to_login.setVisibility(View.GONE);

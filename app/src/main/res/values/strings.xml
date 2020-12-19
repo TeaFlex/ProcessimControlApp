@@ -9,4 +9,18 @@
     <string name="register">Register</string>
     <string name="signin">Sign in</string>
     <string name="signup">Sign up</string>
+    <string name="controlpannel">Control pannel</string>
+    <string name="admin">Administration</string>
+    <string name="manageusers">User management</string>
+    <string name="chgpassword">Change password</string>
+    <string name="modify">Modify</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="data">Data</string>
+    <string name="ip">IP address</string>
+    <string name="mac">MAC address</string>
+    <string name="type">Type</string>
+    <string name="state">State</string>
+    <string name="up">UP</string>
+    <string name="down">DOWN</string>
 </resources>
