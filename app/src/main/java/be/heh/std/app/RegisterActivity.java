@@ -1,12 +1,13 @@
 package be.heh.std.app;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class RegisterActivity extends FormActivity {
 
@@ -30,6 +31,8 @@ public class RegisterActivity extends FormActivity {
         password2 = (EditText) findViewById(R.id.register_password2);
         submit = (Button) findViewById(R.id.register_connect);
 
+        notEmptyInputs.addAll(Arrays.asList(firstname, lastname, email, password, password2));
+
         form.setVisibility(View.VISIBLE);
         if(firstTime) info_msg.setText(getString(R.string.need_register));
     }
@@ -37,9 +40,17 @@ public class RegisterActivity extends FormActivity {
     @Override
     public void checkForm() {
         try {
+            super.checkForm();
+
+            verifyLength(firstname, 6, 20);
+            verifyLength(lastname, 6, 20);
+            verifyEmail(email);
+            verifyPassword(password);
+            checkMatch(password, password2);
 
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            error_msg.setText(e.getMessage());
+            //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
