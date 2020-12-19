@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="empty_err">%s is empty !</string>
-    <string name="between_err">%s must between %d and %d !</string>
+    <string name="between_err">%s must be between %d and %d char(s) !</string>
     <string name="bad_email_err">%s is not a valid email address !</string>
     <string name="bad_password_err">%s must contain at least %d character(s), %d digit(s) and %d special char(s).</string>
     <string name="dont_match_err">%s and %s don\'t match !</string>
+    <string name="bad_check_pass_err">The password is invalid.</string>
+    <string name="nonexistent_user_err">This user does not exist.</string>
 </resources>

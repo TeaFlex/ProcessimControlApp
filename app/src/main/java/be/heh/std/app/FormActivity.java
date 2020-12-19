@@ -1,17 +1,20 @@
 package be.heh.std.app;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
-import android.service.autofill.FieldClassification;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import be.heh.std.security.PasswordAuthentication;
 
 public abstract class FormActivity extends Activity {
 
@@ -53,7 +56,7 @@ public abstract class FormActivity extends Activity {
     }
 
     public void verifyLength(EditText in, int min, int max) throws Exception {
-        if(in.getText().length() <= min || in.getText().length() >= max)
+        if(in.getText().length() < min || in.getText().length() > max)
             throw new Exception(String.format(getString(R.string.between_err),
                     in.getHint(), min, max));
     }
@@ -70,8 +73,13 @@ public abstract class FormActivity extends Activity {
     }
 
     public void checkMatch(EditText one, EditText two) throws Exception {
-        if(!one.getText().equals(two.getText()))
+        if(!one.getText().toString().equals(two.getText().toString()))
             throw new Exception(String.format(getString(R.string.dont_match_err),
                     one.getHint(), two.getHint()));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getHashedPassword(String in) throws Exception {
+        return new PasswordAuthentication().hash(in.toCharArray());
     }
 }

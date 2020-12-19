@@ -3,12 +3,9 @@ package be.heh.std.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
-
-import be.heh.std.database.User;
 
 @Dao
 public interface UserDAO {
@@ -27,6 +24,9 @@ public interface UserDAO {
 
     @Query("SELECT * FROM user WHERE id = :id;")
     User getUserById(int id);
+
+    @Query("SELECT * FROM user WHERE email = :email;")
+    User getUserByEmail(String email);
 
     @Query("SELECT * FROM user WHERE role = :role;")
     List<User> getUsersByRole(int role);

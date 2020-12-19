@@ -6,7 +6,7 @@
     <string name="password">Password</string>
     <string name="password2">Repeat password</string>
     <string name="connect">Connect</string>
-    <string name="register">Sign up</string>
-    <string name="need_register">Please sign up a first time to use the app.</string>
-    <string name="need_login">Please sign in for further actions.</string>
+    <string name="register">Register</string>
+    <string name="signin">Sign in</string>
+    <string name="signup">Sign up</string>
 </resources>

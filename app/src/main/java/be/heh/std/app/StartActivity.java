@@ -12,13 +12,14 @@ import be.heh.std.database.AppDatabase;
 
 public class StartActivity extends AppCompatActivity {
 
-    private Intent intent = new Intent(this, LoginActivity.class);
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        intent = new Intent(this, LoginActivity.class);
         try {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             Boolean isDatabaseEmpty = (db.userdao().getCountOfUsers() == 0);
