@@ -3,5 +3,5 @@
     <string name="need_register">Please sign up a first time to use the app.</string>
     <string name="need_login">Please sign in for further actions.</string>
     <string name="greetings">Welcome %s !</string>
-
+    <string name="mod_profile_done">Your informations have been updated !</string>
 </resources>

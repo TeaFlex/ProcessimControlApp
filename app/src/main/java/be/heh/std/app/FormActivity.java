@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -23,6 +24,7 @@ public abstract class FormActivity extends Activity {
     protected TextView info_msg;
     protected TextView error_msg;
     protected Button submit;
+    protected Button cancel;
     protected ArrayList<View> notEmptyInputs;
 
 
@@ -37,9 +39,17 @@ public abstract class FormActivity extends Activity {
         title.setVisibility(View.GONE);
     }
 
-    public void onFormClickManager(View v) throws Exception {
+    public void onFormClickManager(View v) {
         //Submit button automatically check the form.
-        if(v.getId() == submit.getId()) checkForm();
+        try {
+            if((submit != null) && (v.getId() == submit.getId()))
+                checkForm();
+
+            else if((cancel != null) && (v.getId() == cancel.getId()))
+                finish();
+        } catch (Exception e) {
+            error_msg.setText(e.getMessage());
+        }
     }
 
     public void checkForm() throws Exception {
@@ -82,5 +92,9 @@ public abstract class FormActivity extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public String getHashedPassword(String in) throws Exception {
         return new PasswordAuthentication().hash(in.toCharArray());
+    }
+
+    public void toastMessage(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
     }
 }

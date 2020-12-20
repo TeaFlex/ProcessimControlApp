@@ -51,45 +51,40 @@ public class RegisterActivity extends FormActivity {
 
     @Override
     public void onFormClickManager(View v) {
-        try {
-            super.onFormClickManager(v);
-            switch (v.getId()) {
-                case R.id.to_login:
-                    startActivity(new Intent(this, LoginActivity.class));
-                    finish();
-                    break;
-            }
-        } catch (Exception e) {
-            error_msg.setText(e.getMessage());
+        super.onFormClickManager(v);
+        switch (v.getId()) {
+            case R.id.to_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void checkForm() {
-        try {
-            super.checkForm();
+    public void checkForm() throws Exception{
+        super.checkForm();
 
-            verifyLength(firstname, 6, 20);
-            verifyLength(lastname, 6, 20);
-            verifyEmail(email);
-            verifyPassword(password);
-            checkMatch(password, password2);
+        verifyLength(firstname, 4, 20);
+        verifyLength(lastname, 4, 20);
+        verifyEmail(email);
+        verifyPassword(password);
+        checkMatch(password, password2);
 
-            AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            User newUser = new User();
-            newUser.firstname = firstname.getText().toString();
-            newUser.lastname = lastname.getText().toString();
-            newUser.email = email.getText().toString().toLowerCase();
-            newUser.password = getHashedPassword(password.getText().toString());
-            newUser.role = (firstTime)? Roles.ADMIN.name() : Roles.BASIC.name();
-            db.userdao().addUser(newUser);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        User newUser = new User();
+        newUser.firstname = firstname.getText().toString();
+        newUser.lastname = lastname.getText().toString();
+        newUser.email = email.getText().toString().toLowerCase();
+        newUser.password = getHashedPassword(password.getText().toString());
+        newUser.role = (firstTime)? Roles.ADMIN.name() : Roles.BASIC.name();
 
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        } catch (Exception e) {
-            error_msg.setText(e.getMessage());
-            //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        if(db.userdao().getUserByEmail(newUser.email) != null)
+            throw new Exception(getString(R.string.taken_email_err));
+
+        db.userdao().addUser(newUser);
+
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 }

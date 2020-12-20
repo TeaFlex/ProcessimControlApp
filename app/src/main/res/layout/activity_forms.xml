@@ -23,7 +23,7 @@
         />
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="@dimen/block_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
@@ -52,6 +52,18 @@
     <include
         layout="@layout/module_register"
         android:id="@+id/register_form"
+        android:visibility="gone"
+        />
+
+    <include
+        layout="@layout/module_modprofile"
+        android:id="@+id/modprofile_form"
+        android:visibility="gone"
+        />
+
+    <include
+        layout="@layout/module_chgpassword"
+        android:id="@+id/chgpassword_form"
         android:visibility="gone"
         />
 

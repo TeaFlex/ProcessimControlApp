@@ -11,7 +11,7 @@
     android:id="@+id/welcome_layout">
 
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="@dimen/block_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/white_tran"
@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_infos"
-            android:background="@color/white"
             >
         </TableLayout>
 
@@ -55,7 +54,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_width="@dimen/block_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/white_tran"
@@ -68,23 +67,20 @@
             android:text="@string/actions"
             android:textSize="@dimen/title_size"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/user_management"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/manage_users"
-                android:onClick="onWelcomeClickManager"/>
+        <Button
+            android:id="@+id/user_management"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_users"
+            android:onClick="onWelcomeClickManager"
+            android:visibility="gone"/>
 
-            <Button
-                android:id="@+id/connect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chg_password"
-                android:onClick="onWelcomeClickManager"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/connect_to_plc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connect_to_plc"
+            android:onClick="onWelcomeClickManager"/>
     </LinearLayout>
 
 </LinearLayout>

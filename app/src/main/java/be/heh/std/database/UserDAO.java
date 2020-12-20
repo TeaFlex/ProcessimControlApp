@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -33,4 +34,10 @@ public interface UserDAO {
 
     @Query("SELECT COUNT(*) FROM user;")
     int getCountOfUsers();
+
+    @Query("UPDATE user " +
+            "SET firstname = :firstname, lastname = :lastname, email = :email " +
+            "WHERE id = :id;")
+    void updateBasicsInfosUser(int id, String firstname, String lastname, String email);
+
 }

@@ -7,4 +7,5 @@
     <string name="dont_match_err">%s and %s don\'t match !</string>
     <string name="bad_check_pass_err">The password is invalid.</string>
     <string name="nonexistent_user_err">This user does not exist.</string>
+    <string name="taken_email_err">This email address is already taken.</string>
 </resources>

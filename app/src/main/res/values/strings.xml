@@ -24,4 +24,5 @@
     <string name="up">UP</string>
     <string name="down">DOWN</string>
     <string name="actions">Actions</string>
+    <string name="connect_to_plc">Connect to a PLC</string>
 </resources>
