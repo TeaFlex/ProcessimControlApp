@@ -63,7 +63,7 @@ public class ModProfileActivity extends FormActivity {
             throw new Exception(getString(R.string.taken_email_err));
 
         int id = Integer.parseInt(intent.getStringExtra("user_id"));
-        db.userdao().updateBasicsInfosUser(id,
+        db.userdao().updateUserBasicInfos(id,
                 firstname.getText().toString(),
                 lastname.getText().toString(),
                 email.getText().toString());

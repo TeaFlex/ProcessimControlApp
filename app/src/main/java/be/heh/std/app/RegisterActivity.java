@@ -69,7 +69,7 @@ public class RegisterActivity extends FormActivity {
         verifyLength(lastname, 4, 20);
         verifyEmail(email);
         verifyPassword(password);
-        checkMatch(password, password2);
+        areTextMatching(password, password2);
 
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         User newUser = new User();

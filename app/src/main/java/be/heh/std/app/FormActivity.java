@@ -83,7 +83,7 @@ public abstract class FormActivity extends Activity {
                     in.getHint(), 8, 1, 1));
     }
 
-    public void checkMatch(EditText one, EditText two) throws Exception {
+    public void areTextMatching(EditText one, EditText two) throws Exception {
         if(!one.getText().toString().equals(two.getText().toString()))
             throw new Exception(String.format(getString(R.string.dont_match_err),
                     one.getHint(), two.getHint()));
@@ -96,5 +96,10 @@ public abstract class FormActivity extends Activity {
 
     public void toastMessage(String text) {
         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean isPotentialHash(String password, String hash) {
+        PasswordAuthentication p = new PasswordAuthentication();
+        return p.authenticate(password.toCharArray(), hash);
     }
 }

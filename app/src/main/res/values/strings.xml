@@ -25,4 +25,5 @@
     <string name="down">DOWN</string>
     <string name="actions">Actions</string>
     <string name="connect_to_plc">Connect to a PLC</string>
+    <string name="old_password">Old password</string>
 </resources>

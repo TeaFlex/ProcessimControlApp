@@ -54,15 +54,14 @@ public class LoginActivity extends FormActivity {
 
         verifyEmail(email);
 
-        PasswordAuthentication p = new PasswordAuthentication();
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         User u = db.userdao().getUserByEmail(email.getText().toString().toLowerCase());
 
         if(u == null)
             throw new Exception(getString(R.string.nonexistent_user_err));
 
-        if(!p.authenticate(password.getText().toString().toCharArray(), u.password))
-            throw new Exception(getString(R.string.bad_check_pass_err));
+        if(!isPotentialHash(password.getText().toString(), u.password))
+            throw new Exception(getString(R.string.not_matching_password_err));
 
         Intent intent = new Intent(this, WelcomeActivity.class);
         intent.putExtra("user_id", String.valueOf(u.id));

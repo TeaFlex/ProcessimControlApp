@@ -1,24 +1,16 @@
 package be.heh.std.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.Objects;
-import java.util.Set;
-
-import be.heh.std.database.User;
 
 public class WelcomeActivity extends Activity {
 
@@ -66,7 +58,6 @@ public class WelcomeActivity extends Activity {
             case R.id.chg_password:
                 intent.setClass(this, ChgPasswordActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.connect_to_plc:
                 //TODO
