@@ -13,7 +13,7 @@ android:orientation="vertical"
         android:id="@+id/register_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/firstname"
+        android:hint="@string/first_name"
         android:inputType="text"
         />
 
@@ -21,7 +21,7 @@ android:orientation="vertical"
         android:id="@+id/register_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/lastname"
+        android:hint="@string/last_name"
         android:inputType="text"
         />
 
@@ -61,7 +61,7 @@ android:orientation="vertical"
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signin"
+        android:text="@string/sign_in"
         android:id="@+id/to_login"
         style="@style/Widget.AppCompat.ActionButton"
         android:onClick="onFormClickManager"/>

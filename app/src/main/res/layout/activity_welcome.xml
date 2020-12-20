@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:textSize="20dp"
+            android:textSize="@dimen/title_size"
             android:textStyle="bold"
             />
         <TableLayout
@@ -49,7 +49,7 @@
                 android:id="@+id/chg_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/chgpassword"
+                android:text="@string/chg_password"
                 android:onClick="onWelcomeClickManager"/>
         </LinearLayout>
     </LinearLayout>
@@ -57,10 +57,34 @@
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@color/white_tran"
-        android:layout_marginTop="20dp"
-        >
+        android:padding="20dp"
+        android:layout_marginTop="20dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/actions"
+            android:textSize="@dimen/title_size"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/user_management"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_users"
+                android:onClick="onWelcomeClickManager"/>
+
+            <Button
+                android:id="@+id/connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chg_password"
+                android:onClick="onWelcomeClickManager"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

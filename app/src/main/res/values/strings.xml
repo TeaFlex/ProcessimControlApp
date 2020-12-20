@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Processim Control</string>
-    <string name="firstname">First name</string>
-    <string name="lastname">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
     <string name="email">Email address</string>
     <string name="password">Password</string>
     <string name="password2">Repeat password</string>
     <string name="connect">Connect</string>
     <string name="register">Register</string>
-    <string name="signin">Sign in</string>
-    <string name="signup">Sign up</string>
-    <string name="controlpannel">Control pannel</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="control_panel">Control panel</string>
     <string name="admin">Administration</string>
-    <string name="manageusers">User management</string>
-    <string name="chgpassword">Change password</string>
+    <string name="manage_users">User management</string>
+    <string name="chg_password">Change password</string>
     <string name="modify">Modify</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
@@ -23,4 +23,5 @@
     <string name="state">State</string>
     <string name="up">UP</string>
     <string name="down">DOWN</string>
+    <string name="actions">Actions</string>
 </resources>
