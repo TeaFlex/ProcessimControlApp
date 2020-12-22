@@ -12,6 +12,10 @@
     <string name="control_panel">Control panel</string>
     <string name="admin">Administration</string>
     <string name="manage_users">User management</string>
+    <string name="delete_user">Delete user</string>
+    <string name="chg_user_role">Change user role</string>
+    <string name="users_list">List of users</string>
+    <string name="user_id">User ID</string>
     <string name="chg_password">Change password</string>
     <string name="modify">Modify</string>
     <string name="cancel">Cancel</string>
@@ -27,4 +31,5 @@
     <string name="connect_to_plc">Connect to a PLC</string>
     <string name="old_password">Old password</string>
     <string name="user_disconnect">Disconnect</string>
+
 </resources>

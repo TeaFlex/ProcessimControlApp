@@ -1,70 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    tools:ignore="MissingClass"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:background="@drawable/gradient_1"
-    >
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    tools:ignore="MissingClass">
 
     <TextView
         android:id="@+id/form_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="100dp"
         android:textSize="@dimen/big_title_size"
         android:textStyle="bold"
-        />
+        app:layout_constraintBottom_toTopOf="@id/msg_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <LinearLayout
+        android:id="@+id/msg_box"
         android:layout_width="@dimen/block_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
+        app:layout_constraintBottom_toTopOf="@id/form_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/form_title">
+
         <TextView
             android:id="@+id/info_msg"
-            android:textColor="@color/yellow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            />
+            android:textColor="@color/yellow" />
+
         <TextView
             android:id="@+id/error_msg"
-            android:textColor="@color/red"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            />
+            android:textColor="@color/red" />
     </LinearLayout>
 
-    <include
-        layout="@layout/module_login"
-        android:id="@+id/login_form"
-        android:visibility="gone"
-        />
+    <LinearLayout
+        android:id="@+id/form_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <include
-        layout="@layout/module_register"
-        android:id="@+id/register_form"
-        android:visibility="gone"
-        />
+        <include
+            android:id="@+id/login_form"
+            layout="@layout/module_login"
+            android:visibility="gone" />
 
-    <include
-        layout="@layout/module_modprofile"
-        android:id="@+id/modprofile_form"
-        android:visibility="gone"
-        />
+        <include
+            android:id="@+id/register_form"
+            layout="@layout/module_register"
+            android:visibility="gone" />
 
-    <include
-        layout="@layout/module_chgpassword"
-        android:id="@+id/chgpassword_form"
-        android:visibility="gone"
-        />
+        <include
+            android:id="@+id/modprofile_form"
+            layout="@layout/module_modprofile"
+            android:visibility="gone" />
 
-</LinearLayout>
+        <include
+            android:id="@+id/chgpassword_form"
+            layout="@layout/module_chgpassword"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
