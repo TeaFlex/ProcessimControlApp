@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import be.heh.std.database.AppDatabase;
+import be.heh.std.model.database.AppDatabase;
 
 public class StartActivity extends AppCompatActivity {
 

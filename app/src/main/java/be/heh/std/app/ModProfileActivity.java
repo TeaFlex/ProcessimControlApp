@@ -9,8 +9,8 @@ import android.widget.EditText;
 import java.util.Arrays;
 import java.util.Objects;
 
-import be.heh.std.database.AppDatabase;
-import be.heh.std.database.User;
+import be.heh.std.model.database.AppDatabase;
+import be.heh.std.model.database.User;
 
 public class ModProfileActivity extends FormActivity {
 
@@ -75,7 +75,7 @@ public class ModProfileActivity extends FormActivity {
         intent.putExtra("user_firstname", u.firstname);
         intent.putExtra("user_lastname", u.lastname);
         intent.putExtra("user_email", u.email);
-        intent.putExtra("user_role", u.role);
+        intent.putExtra("user_role", u.role.name());
         toastMessage(getString(R.string.mod_profile_done));
         startActivity(intent);
         finish();

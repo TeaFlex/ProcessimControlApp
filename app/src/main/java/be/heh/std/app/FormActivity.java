@@ -15,7 +15,7 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import be.heh.std.security.PasswordAuthentication;
+import be.heh.std.imported.security.PasswordAuthentication;
 
 public abstract class FormActivity extends Activity {
 
@@ -74,7 +74,7 @@ public abstract class FormActivity extends Activity {
 
     public void verifyEmail(EditText in) throws Exception {
         if(!(Patterns.EMAIL_ADDRESS.matcher(in.getText()).matches()))
-            throw new Exception(String.format(getString(R.string.bad_email_err), in.getHint()));
+            throw new Exception(getString(R.string.bad_email_err, in.getHint()));
     }
 
     public void verifyPassword(EditText in) throws Exception {

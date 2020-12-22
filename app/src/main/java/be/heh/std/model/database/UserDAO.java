@@ -1,10 +1,9 @@
-package be.heh.std.database;
+package be.heh.std.model.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public interface UserDAO {
     User getUserByEmail(String email);
 
     @Query("SELECT * FROM user WHERE role = :role;")
-    List<User> getUsersByRole(int role);
+    List<User> getUsersByRole(Role role);
 
     @Query("SELECT COUNT(*) FROM user;")
     int getCountOfUsers();

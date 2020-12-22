@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package be.heh.threadapp.simaticS7;
+package be.heh.std.imported.simaticS7;
 
 /**
  * Quick class to pass an integer by reference

@@ -36,20 +36,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
             <Button
                 android:id="@+id/modify_profile"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/modify"
                 android:onClick="onWelcomeClickManager"/>
 
             <Button
                 android:id="@+id/chg_password"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/chg_password"
                 android:onClick="onWelcomeClickManager"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user_disconnect"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:id="@+id/user_disconnect"
+                android:onClick="onWelcomeClickManager"/>
+
         </LinearLayout>
     </LinearLayout>
 

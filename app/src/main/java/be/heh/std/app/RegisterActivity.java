@@ -11,9 +11,9 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Arrays;
 
-import be.heh.std.database.AppDatabase;
-import be.heh.std.database.User;
-import be.heh.std.model.Roles;
+import be.heh.std.model.database.AppDatabase;
+import be.heh.std.model.database.User;
+import be.heh.std.model.database.Role;
 
 public class RegisterActivity extends FormActivity {
 
@@ -77,7 +77,7 @@ public class RegisterActivity extends FormActivity {
         newUser.lastname = lastname.getText().toString();
         newUser.email = email.getText().toString().toLowerCase();
         newUser.password = getHashedPassword(password.getText().toString());
-        newUser.role = (firstTime)? Roles.ADMIN.name() : Roles.BASIC.name();
+        newUser.role = (firstTime)? Role.ADMIN : Role.BASIC;
 
         if(db.userdao().getUserByEmail(newUser.email) != null)
             throw new Exception(getString(R.string.taken_email_err));

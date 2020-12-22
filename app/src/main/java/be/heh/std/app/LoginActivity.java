@@ -11,9 +11,8 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Arrays;
 
-import be.heh.std.database.AppDatabase;
-import be.heh.std.database.User;
-import be.heh.std.security.PasswordAuthentication;
+import be.heh.std.model.database.AppDatabase;
+import be.heh.std.model.database.User;
 
 public class LoginActivity extends FormActivity {
 
@@ -68,7 +67,7 @@ public class LoginActivity extends FormActivity {
         intent.putExtra("user_firstname", u.firstname);
         intent.putExtra("user_lastname", u.lastname);
         intent.putExtra("user_email", u.email);
-        intent.putExtra("user_role", u.role);
+        intent.putExtra("user_role", u.role.name());
         startActivity(intent);
         finish();
     }

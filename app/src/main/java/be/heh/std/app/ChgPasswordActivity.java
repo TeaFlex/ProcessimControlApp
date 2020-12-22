@@ -11,9 +11,8 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Arrays;
 
-import be.heh.std.database.AppDatabase;
-import be.heh.std.database.User;
-import be.heh.std.security.PasswordAuthentication;
+import be.heh.std.model.database.AppDatabase;
+import be.heh.std.model.database.User;
 
 public class ChgPasswordActivity extends FormActivity {
 

@@ -1,7 +1,6 @@
-package be.heh.std.database;
+package be.heh.std.model.database;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
@@ -18,6 +17,6 @@ public class User {
     public String email;
     @NonNull
     public String password;
-    @NonNull @ColumnInfo(defaultValue = "BASIC")
-    public String role;
+    @NonNull
+    public Role role;
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package be.heh.threadapp.simaticS7;
+package be.heh.std.imported.simaticS7;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

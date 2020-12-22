@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -58,6 +59,12 @@ public class WelcomeActivity extends Activity {
             case R.id.chg_password:
                 intent.setClass(this, ChgPasswordActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.user_disconnect:
+                startActivity(new Intent(this, LoginActivity.class));
+                Toast.makeText(getApplicationContext(), getString(R.string.user_disconnected),
+                        Toast.LENGTH_LONG).show();
+                finish();
                 break;
             case R.id.connect_to_plc:
                 //TODO
