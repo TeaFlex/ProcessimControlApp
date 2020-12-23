@@ -1,84 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@drawable/gradient_1"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context=".LoginActivity"
     tools:ignore="MissingClass">
 
-    <TextView
-        android:id="@+id/form_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="@dimen/big_title_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/msg_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <LinearLayout
-        android:id="@+id/msg_box"
-        android:layout_width="@dimen/block_width"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/form_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/form_title">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        >
 
         <TextView
-            android:id="@+id/info_msg"
-            android:layout_width="match_parent"
+            android:id="@+id/form_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/yellow" />
+            android:text="@string/app_name"
+            android:textSize="@dimen/big_title_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/msg_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
 
-        <TextView
-            android:id="@+id/error_msg"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/msg_box"
+            android:layout_width="@dimen/block_width"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/red" />
-    </LinearLayout>
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/form_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/form_title">
 
-    <LinearLayout
-        android:id="@+id/form_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/info_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/yellow" />
 
-        <include
-            android:id="@+id/login_form"
-            layout="@layout/module_login"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/error_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/red" />
+        </LinearLayout>
 
-        <include
-            android:id="@+id/register_form"
-            layout="@layout/module_register"
-            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/form_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/modprofile_form"
-            layout="@layout/module_modprofile"
-            android:visibility="gone" />
+            <include
+                android:id="@+id/login_form"
+                layout="@layout/module_login"
+                android:visibility="gone" />
 
-        <include
-            android:id="@+id/chgpassword_form"
-            layout="@layout/module_chgpassword"
-            android:visibility="gone" />
-    </LinearLayout>
+            <include
+                android:id="@+id/register_form"
+                layout="@layout/module_register"
+                android:visibility="gone" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/modprofile_form"
+                layout="@layout/module_modprofile"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/chgpassword_form"
+                layout="@layout/module_chgpassword"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
