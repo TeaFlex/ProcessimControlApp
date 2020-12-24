@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import be.heh.std.imported.security.PasswordAuthentication;
+import be.heh.std.model.thread.AsyncExecutor;
 
 public abstract class FormActivity extends Activity {
 

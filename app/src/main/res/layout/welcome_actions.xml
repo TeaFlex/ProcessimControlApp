@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="user" type="be.heh.std.model.database.User" />
+        <variable name="role" type="be.heh.std.model.database.Role" />
+        <variable name="view" type="android.view.View" />
+    </data>
+    <LinearLayout
+        android:layout_width="@dimen/block_width"
+        android:layout_height="wrap_content"
+        android:background="@color/white_tran"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/actions"
+            android:textSize="@dimen/title_size" />
+
+        <Button
+            android:id="@+id/user_management"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onWelcomeClickManager"
+            android:text="@string/manage_users"
+            android:visibility="@{user.role == role.ADMIN ? view.VISIBLE : view.GONE}" />
+
+        <Button
+            android:id="@+id/connect_to_plc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onWelcomeClickManager"
+            android:text="@string/connect_to_plc" />
+    </LinearLayout>
+</layout>

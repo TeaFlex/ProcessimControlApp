@@ -69,22 +69,22 @@
 
             <include
                 android:id="@+id/login_form"
-                layout="@layout/module_login"
+                layout="@layout/form_login"
                 android:visibility="gone" />
 
             <include
                 android:id="@+id/register_form"
-                layout="@layout/module_register"
+                layout="@layout/form_register"
                 android:visibility="gone" />
 
             <include
                 android:id="@+id/modprofile_form"
-                layout="@layout/module_modprofile"
+                layout="@layout/form_modprofile"
                 android:visibility="gone" />
 
             <include
                 android:id="@+id/chgpassword_form"
-                layout="@layout/module_chgpassword"
+                layout="@layout/form_chgpassword"
                 android:visibility="gone" />
         </LinearLayout>
 

@@ -63,11 +63,7 @@ public class LoginActivity extends FormActivity {
             throw new Exception(getString(R.string.not_matching_password_err));
 
         Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra("user_id", String.valueOf(u.id));
-        intent.putExtra("user_firstname", u.firstname);
-        intent.putExtra("user_lastname", u.lastname);
-        intent.putExtra("user_email", u.email);
-        intent.putExtra("user_role", u.role.name());
+        intent.putExtra("user_id", u.id);
         startActivity(intent);
         finish();
     }

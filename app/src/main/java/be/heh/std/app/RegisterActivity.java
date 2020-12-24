@@ -84,6 +84,7 @@ public class RegisterActivity extends FormActivity {
 
         db.userdao().addUser(newUser);
 
+        toastMessage(getString(R.string.register_success));
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }

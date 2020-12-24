@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="greetings" type="String" />
+        <variable name="user" type="be.heh.std.model.database.User" />
+        <variable name="role" type="be.heh.std.model.database.Role" />
+        <variable name="view" type="android.view.View" />
+    </data>
+    <LinearLayout
+        android:layout_width="@dimen/block_width"
+        android:layout_height="wrap_content"
+        android:background="@color/white_tran"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/user_greetings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@{greetings}"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:id="@+id/user_infos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView android:text="@{@string/first_name + `: `}" />
+
+                <TextView android:text="@{user.firstname}" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="@{@string/last_name + `: `}" />
+
+                <TextView android:text="@{user.lastname}" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="@{@string/email + `: `}" />
+
+                <TextView android:text="@{user.email}" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView android:text="@{@string/role + `: `}" />
+
+                <TextView android:text="@{user.role.name()}" />
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/modify_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onWelcomeClickManager"
+                android:text="@string/modify" />
+
+            <Button
+                android:id="@+id/chg_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onWelcomeClickManager"
+                android:text="@string/chg_password" />
+
+            <Button
+                android:id="@+id/user_disconnect"
+                style="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onWelcomeClickManager"
+                android:text="@string/user_disconnect" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>
