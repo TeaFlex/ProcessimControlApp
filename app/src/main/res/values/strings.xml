@@ -17,6 +17,7 @@
     <string name="users_list">List of users</string>
     <string name="user_id">User ID</string>
     <string name="chg_password">Change password</string>
+    <string name="role">Role</string>
     <string name="modify">Modify</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>

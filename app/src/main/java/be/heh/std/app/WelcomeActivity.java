@@ -11,7 +11,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.databinding.DataBindingUtil;
+
 import java.util.Objects;
+
+import be.heh.std.app.databinding.ActivityWelcomeBinding;
+import be.heh.std.model.database.AppDatabase;
+import be.heh.std.model.database.User;
 
 public class WelcomeActivity extends Activity {
 
@@ -21,27 +27,12 @@ public class WelcomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        ActivityWelcomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
         intent = getIntent();
-        TextView greetings = (TextView) findViewById(R.id.user_greetings);
-        greetings.setText(String.format(getString(R.string.greetings),
-                intent.getStringExtra("user_firstname")));
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        User user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        binding.setUser(user);
 
-        TableLayout table = (TableLayout) findViewById(R.id.user_infos);
-        TableRow tr;
-        TextView info;
-
-        String[] keys = {"id", "firstname", "lastname", "email", "role"};
-        for(String key : keys) {
-            tr = new TableRow(this);
-            info = new TextView(this);
-            info.setText(key+": ");
-            TextView data = new TextView(this);
-            data.setText(intent.getStringExtra("user_"+key));
-            tr.addView(info);
-            tr.addView(data);
-            table.addView(tr);
-        }
 
         if(Objects.equals(intent.getStringExtra("user_role"), "ADMIN")){
             Button manage_user = (Button) findViewById(R.id.user_management);
@@ -57,6 +48,8 @@ public class WelcomeActivity extends Activity {
                 finish();
                 break;
             case R.id.chg_password:
+                //Intent test = new Intent(this, ChgPasswordActivity.class);
+                //test.putExtras(intent.getExtras());
                 intent.setClass(this, ChgPasswordActivity.class);
                 startActivity(intent);
                 break;
