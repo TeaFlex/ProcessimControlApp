@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="greetings" type="String" />
         <variable name="user" type="be.heh.std.model.database.User" />
         <variable name="role" type="be.heh.std.model.core.Role" />
         <variable name="view" type="android.view.View" />
@@ -19,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@{greetings}"
+            android:text="@{@string/greetings(user.firstname)}"
             android:textSize="@dimen/title_size"
             android:textStyle="bold" />
 

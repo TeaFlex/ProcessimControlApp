@@ -20,24 +20,17 @@
 
         <Button
             android:id="@+id/user_management"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onWelcomeClickManager"
             android:text="@string/manage_users"
             android:visibility="@{user.role == role.ADMIN ? view.VISIBLE : view.GONE}" />
 
         <Button
-            android:id="@+id/connect_to_plc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onWelcomeClickManager"
-            android:text="@string/connect_to_plc" />
-
-        <Button
             android:id="@+id/plc_management"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onWelcomeClickManager"
-            android:text="@string/connect_to_plc" />
+            android:text="@string/manage_plc" />
     </LinearLayout>
 </layout>

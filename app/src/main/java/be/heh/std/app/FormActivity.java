@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 import be.heh.std.imported.security.PasswordAuthentication;
 import be.heh.std.model.thread.AsyncExecutor;
 
-public abstract class FormActivity extends Activity {
+public abstract class FormActivity extends AppCompatActivity {
 
     protected View form;
     protected TextView title;

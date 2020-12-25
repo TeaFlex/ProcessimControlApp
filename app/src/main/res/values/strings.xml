@@ -30,6 +30,10 @@
     <string name="down">DOWN</string>
     <string name="actions">Actions</string>
     <string name="connect_to_plc">Connect to the PLC</string>
+    <string name="rack">Rack</string>
+    <string name="slot">Slot</string>
+    <string name="add_plc">Add a PLC</string>
+    <string name="plc_list">PLC list</string>
     <string name="manage_plc">PLC management</string>
     <string name="old_password">Old password</string>
     <string name="user_disconnect">Disconnect</string>

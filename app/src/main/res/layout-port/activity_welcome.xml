@@ -4,7 +4,6 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="greetings" type="String" />
         <variable name="user" type="be.heh.std.model.database.User"/>
         <variable name="view" type="android.view.View" />
         <variable name="role" type="be.heh.std.model.core.Role" />
@@ -31,7 +30,6 @@
 
             <include
                 layout="@layout/welcome_user"
-                bind:greetings="@{greetings}"
                 bind:user="@{user}" />
         </LinearLayout>
 

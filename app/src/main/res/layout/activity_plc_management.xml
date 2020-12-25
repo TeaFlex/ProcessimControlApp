@@ -4,11 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PlcManagementActivity">
 
+    <data>
+        <variable name="isListmpty" type="boolean" />
+        <variable name="view" type="android.view.View" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_1"
-        >
+        android:background="@drawable/gradient_1">
+
+        <LinearLayout
+            android:id="@+id/plc_management_box"
+            android:layout_width="@dimen/block_width"
+            android:layout_height="wrap_content"
+            android:background="@color/white_tran"
+            android:maxHeight="@dimen/block_width"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plc_list"
+                android:textSize="@dimen/title_size" />
+
+            <ListView
+                android:id="@+id/conf_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="5dp"
+                android:visibility="@{isListmpty ? view.GONE : view.VISIBLE}"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/empty_list"
+                android:visibility="@{isListmpty ? view.VISIBLE : view.GONE}" />
+
+            <Button
+                android:id="@+id/add_plc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_plc"
+                android:onClick="onPlcManageClick"
+                />
+
+            <Button
+                android:id="@+id/plc_management_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:onClick="onPlcManageClick"
+                />
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
