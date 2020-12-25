@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="user" type="be.heh.std.model.database.User" />
-        <variable name="role" type="be.heh.std.model.database.Role" />
+        <variable name="role" type="be.heh.std.model.core.Role" />
         <variable name="view" type="android.view.View" />
     </data>
     <LinearLayout
@@ -28,6 +28,13 @@
 
         <Button
             android:id="@+id/connect_to_plc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onWelcomeClickManager"
+            android:text="@string/connect_to_plc" />
+
+        <Button
+            android:id="@+id/plc_management"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onWelcomeClickManager"

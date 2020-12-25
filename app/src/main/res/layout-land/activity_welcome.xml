@@ -7,7 +7,7 @@
         <variable name="greetings" type="String" />
         <variable name="user" type="be.heh.std.model.database.User"/>
         <variable name="view" type="android.view.View" />
-        <variable name="role" type="be.heh.std.model.database.Role" />
+        <variable name="role" type="be.heh.std.model.core.Role" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

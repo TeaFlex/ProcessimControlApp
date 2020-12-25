@@ -7,6 +7,8 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import be.heh.std.model.core.Role;
+
 @Dao
 public interface UserDAO {
 

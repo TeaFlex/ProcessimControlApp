@@ -57,6 +57,9 @@ public class WelcomeActivity extends Activity {
             case R.id.user_management:
                 //TODO
                 break;
+            case R.id.plc_management:
+                //TODO
+                break;
             default:
                 break;
         }
