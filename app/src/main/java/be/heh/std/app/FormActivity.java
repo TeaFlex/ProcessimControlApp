@@ -100,4 +100,9 @@ public abstract class FormActivity extends AppCompatActivity {
         PasswordAuthentication p = new PasswordAuthentication();
         return p.authenticate(password.toCharArray(), hash);
     }
+
+    public void verifyIp(EditText in) throws Exception{
+        if(!Patterns.IP_ADDRESS.matcher(in.getText()).matches())
+            throw new Exception(getString(R.string.bad_ip_err, in.getText()));
+    }
 }

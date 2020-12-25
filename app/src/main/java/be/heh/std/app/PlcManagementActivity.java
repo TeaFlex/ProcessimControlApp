@@ -1,5 +1,6 @@
 package be.heh.std.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,14 +21,13 @@ public class PlcManagementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        ArrayList<PlcConf> confs = new ArrayList<>(db.plcConfDAO().getAllConfs());
-        if(confs.isEmpty()) confs.add(new PlcConf());
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_plc_management);
-        PlcConfAdapter adapter = new PlcConfAdapter(confs);
-        binding.confList.setAdapter(adapter);
-        binding.setIsListmpty(confs.isEmpty());
+        updateList();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateList();
     }
 
     public void onPlcManageClick(View v) {
@@ -35,7 +35,18 @@ public class PlcManagementActivity extends AppCompatActivity {
             case R.id.plc_management_back:
                 finish();
             break;
+            case R.id.add_plc:
+                startActivity(new Intent(this, AddPlcActivity.class));
+                break;
         }
     }
 
+    public void updateList(){
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_plc_management);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        ArrayList<PlcConf> confs = new ArrayList<>(db.plcConfDAO().getAllConfs());
+        PlcConfAdapter adapter = new PlcConfAdapter(confs);
+        binding.confList.setAdapter(adapter);
+        binding.setIsListmpty(confs.isEmpty());
+    }
 }

@@ -58,7 +58,7 @@
 
         <LinearLayout
             android:id="@+id/form_box"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/block_width"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,6 +86,11 @@
                 android:id="@+id/chgpassword_form"
                 layout="@layout/form_chgpassword"
                 android:visibility="gone" />
+
+            <include
+                layout="@layout/form_add_plc"
+                android:id="@+id/plc_add_form"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

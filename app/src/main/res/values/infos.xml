@@ -10,4 +10,5 @@
     <string name="double_dot">%s : %s</string>
     <string name="empty_list">This list is empty.</string>
     <string name="connect_plc_msg">Connect to %s ?</string>
+    <string name="plc_added">PLC configuration added with success !</string>
 </resources>
