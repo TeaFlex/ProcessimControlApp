@@ -35,7 +35,7 @@ public class PlcManagementActivity extends AppCompatActivity {
             case R.id.plc_management_back:
                 finish();
             break;
-            case R.id.add_plc:
+            case R.id.plc_management_add:
                 startActivity(new Intent(this, AddPlcActivity.class));
                 break;
         }

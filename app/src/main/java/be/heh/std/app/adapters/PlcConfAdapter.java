@@ -52,8 +52,17 @@ public class PlcConfAdapter extends BaseAdapter {
         }
         else
             binding = (ItemPlcBinding) result.getTag();
+        result.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return false;
+            }
+        });
+
         result.setOnClickListener(v -> {
             Context c = parent.getContext();
+
             String desc = String.format("%d (%s)", current_conf.id, current_conf.ip);
             new AlertDialog.Builder(c)
                     .setMessage(c.getString(R.string.connect_plc_msg, desc))

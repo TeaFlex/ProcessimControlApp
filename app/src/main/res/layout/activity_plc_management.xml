@@ -15,58 +15,77 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_1">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/plc_management_box"
             android:layout_width="@dimen/block_width"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/big_margin"
             android:background="@color/white_tran"
             android:maxHeight="@dimen/block_width"
-            android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="@dimen/padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/plc_list"
-                android:textSize="@dimen/title_size" />
-
-            <ListView
-                android:id="@+id/conf_list"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="5dp"
-                android:visibility="@{isListmpty ? view.GONE : view.VISIBLE}"
-                tools:ignore="MissingConstraints" />
+                android:layout_alignParentTop="true"
+                android:layout_above="@id/plc_management_add">
+                <TextView
+                    android:id="@+id/plc_list_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plc_list"
+                    android:textSize="@dimen/title_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="5dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/empty_list"
-                android:visibility="@{isListmpty ? view.VISIBLE : view.GONE}" />
+                <ListView
+                    android:id="@+id/conf_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:visibility="@{isListmpty ? view.GONE : view.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plc_list_label"/>
+
+                <TextView
+                    android:id="@+id/plc_is_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_list"
+                    android:visibility="@{isListmpty ? view.VISIBLE : view.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plc_list_label"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/add_plc"
+                android:id="@+id/plc_management_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_plc"
                 android:onClick="onPlcManageClick"
-                />
+                android:text="@string/add_plc"
+                app:layout_constraintBottom_toTopOf="@id/plc_management_back"
+                android:layout_above="@id/plc_management_back" />
 
             <Button
                 android:id="@+id/plc_management_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel"
                 android:onClick="onPlcManageClick"
-                />
-        </LinearLayout>
+                android:text="@string/cancel"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

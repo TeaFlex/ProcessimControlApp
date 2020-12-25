@@ -3,4 +3,7 @@
     <dimen name="big_title_size">30sp</dimen>
     <dimen name="title_size">20sp</dimen>
     <dimen name="block_width">350dp</dimen>
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="big_margin">20dp</dimen>
+    <dimen name="padding">5dp</dimen>
 </resources>

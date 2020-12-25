@@ -16,6 +16,7 @@
                 android:id="@+id/plc_ip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:text="@{@string/double_dot(@string/ip, plc.ip)}" />
 
             <TextView
@@ -30,6 +31,7 @@
                 android:id="@+id/plc_slot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
                 android:text="@{@string/double_dot(@string/slot, plc.slot)}" />
 
             <TextView
