@@ -1,26 +1,30 @@
 package be.heh.std.app;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import java.util.ArrayList;
 
-import be.heh.std.app.databinding.ActivityPlcManagementBinding;
 import be.heh.std.app.adapters.PlcConfAdapter;
+import be.heh.std.app.databinding.ActivityPlcManagementBinding;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 
 public class PlcManagementActivity extends AppCompatActivity {
 
     private ActivityPlcManagementBinding binding;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db =  AppDatabase.getInstance(getApplicationContext());
         updateList();
     }
 
@@ -38,15 +42,36 @@ public class PlcManagementActivity extends AppCompatActivity {
             case R.id.plc_management_add:
                 startActivity(new Intent(this, AddPlcActivity.class));
                 break;
+            case R.id.plc_del:
+
+                int received_id = Integer.parseInt(v.getTag().toString());
+                new AlertDialog.Builder(this)
+                        .setMessage(getString(R.string.plc_del_confirmation,
+                                getString(R.string.plc_n, received_id)))
+                        .setNegativeButton(R.string.cancel, null)
+                        .setPositiveButton(R.string.accept, (dialog, which) -> {
+                            deleteElement(received_id);
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.plc_deleted, received_id),
+                                    Toast.LENGTH_LONG).show();
+                        })
+                        .create()
+                        .show();
+
+                break;
         }
     }
 
     public void updateList(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_plc_management);
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         ArrayList<PlcConf> confs = new ArrayList<>(db.plcConfDAO().getAllConfs());
         PlcConfAdapter adapter = new PlcConfAdapter(confs);
         binding.confList.setAdapter(adapter);
         binding.setIsListmpty(confs.isEmpty());
+    }
+
+    public void deleteElement(int id) {
+        db.plcConfDAO().deleteConfById(id);
+        updateList();
     }
 }

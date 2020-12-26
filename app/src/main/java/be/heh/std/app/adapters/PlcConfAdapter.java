@@ -52,7 +52,8 @@ public class PlcConfAdapter extends BaseAdapter {
         }
         else
             binding = (ItemPlcBinding) result.getTag();
-        result.setOnLongClickListener(new View.OnLongClickListener() {
+        binding.plcDel.setTag(current_conf.id);
+        /*result.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -60,7 +61,7 @@ public class PlcConfAdapter extends BaseAdapter {
             }
         });
 
-        result.setOnClickListener(v -> {
+        /*result.setOnClickListener(v -> {
             Context c = parent.getContext();
 
             String desc = String.format("%d (%s)", current_conf.id, current_conf.ip);
@@ -72,8 +73,7 @@ public class PlcConfAdapter extends BaseAdapter {
 
                     })
                     .show();
-
-        });
+        });*/
         binding.setPlc(current_conf);
         return result;
     }

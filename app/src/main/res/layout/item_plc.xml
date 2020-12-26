@@ -5,40 +5,64 @@
         <variable name="plc" type="be.heh.std.model.database.PlcConf" />
     </data>
 
-    <TableLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
         android:background="@color/grey_tran">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        <TableRow>
-            <TextView
-                android:id="@+id/plc_ip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@{@string/double_dot(@string/ip, plc.ip)}" />
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/plc_del">
 
-            <TextView
-                android:id="@+id/plc_rack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/double_dot(@string/rack, plc.rack)}" />
-        </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@{@string/plc + ` `+plc.id}"/>
 
-        <TableRow>
-            <TextView
-                android:id="@+id/plc_slot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@{@string/double_dot(@string/slot, plc.slot)}" />
+                <TextView
+                    android:id="@+id/plc_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/small_margin"
+                    android:text="@{@string/double_dot(@string/ip, plc.ip)}" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/plc_slot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/small_margin"
+                    android:text="@{@string/double_dot(@string/slot, plc.slot)}" />
 
-            <TextView
-                android:id="@+id/plc_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{@string/double_dot(@string/type, plc.type.name())}" />
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/plc_rack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/double_dot(@string/rack, plc.rack)}" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/plc_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/double_dot(@string/type, plc.type.name())}" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/plc_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            style="@style/Widget.AppCompat.ActionButton.CloseMode"
+            android:onClick="onPlcManageClick"
+            />
+    </RelativeLayout>
 </layout>
