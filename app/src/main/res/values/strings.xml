@@ -17,6 +17,7 @@
     <string name="users_list">List of users</string>
     <string name="user_id">User ID</string>
     <string name="chg_password">Change password</string>
+    <string name="mod_profile">Modify profile</string>
     <string name="role">Role</string>
     <string name="modify">Modify</string>
     <string name="cancel">Cancel</string>
@@ -29,7 +30,7 @@
     <string name="up">UP</string>
     <string name="down">DOWN</string>
     <string name="actions">Actions</string>
-    <string name="connect_to_plc">Connect to the PLC</string>
+    <string name="connect_to_plc">Connect to a PLC</string>
     <string name="rack">Rack</string>
     <string name="slot">Slot</string>
     <string name="plc">PLC</string>

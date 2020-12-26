@@ -61,6 +61,8 @@
             android:layout_width="@dimen/block_width"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/white_tran"
+            android:padding="@dimen/padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

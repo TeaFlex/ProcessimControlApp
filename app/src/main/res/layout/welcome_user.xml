@@ -6,18 +6,18 @@
         <variable name="view" type="android.view.View" />
     </data>
     <LinearLayout
-        android:layout_width="@dimen/block_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_tran"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/big_padding">
 
         <TextView
             android:id="@+id/user_greetings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
             android:text="@{@string/greetings(user.firstname)}"
             android:textSize="@dimen/title_size"
             android:textStyle="bold" />
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onWelcomeClickManager"
-                android:text="@string/modify" />
+                android:text="@string/mod_profile" />
 
             <Button
                 android:id="@+id/chg_password"

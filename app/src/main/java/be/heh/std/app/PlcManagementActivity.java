@@ -51,18 +51,24 @@ public class PlcManagementActivity extends AppCompatActivity {
             case R.id.plc_del:
 
                 int received_id = Integer.parseInt(v.getTag().toString());
-                new AlertDialog.Builder(this)
-                        .setMessage(getString(R.string.plc_del_confirmation,
-                                getString(R.string.plc_n, received_id)))
-                        .setNegativeButton(R.string.cancel, null)
-                        .setPositiveButton(R.string.accept, (dialog, which) -> {
-                            deleteElement(received_id);
-                            Toast.makeText(getApplicationContext(),
-                                    getString(R.string.plc_deleted, received_id),
-                                    Toast.LENGTH_LONG).show();
-                        })
-                        .create()
-                        .show();
+                if(current_user.role == Role.BASIC)
+                    Toast.makeText(this,
+                            getString(R.string.unauthorized),
+                            Toast.LENGTH_SHORT).show();
+                else {
+                    new AlertDialog.Builder(this)
+                            .setMessage(getString(R.string.plc_del_confirmation,
+                                    getString(R.string.plc_n, received_id)))
+                            .setNegativeButton(R.string.cancel, null)
+                            .setPositiveButton(R.string.accept, (dialog, which) -> {
+                                deleteElement(received_id);
+                                Toast.makeText(getApplicationContext(),
+                                        getString(R.string.plc_deleted, received_id),
+                                        Toast.LENGTH_LONG).show();
+                            })
+                            .create()
+                            .show();
+                }
 
                 break;
         }
