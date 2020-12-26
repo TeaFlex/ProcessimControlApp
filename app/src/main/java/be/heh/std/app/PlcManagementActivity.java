@@ -13,18 +13,24 @@ import java.util.ArrayList;
 
 import be.heh.std.app.adapters.PlcConfAdapter;
 import be.heh.std.app.databinding.ActivityPlcManagementBinding;
+import be.heh.std.model.core.Role;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
+import be.heh.std.model.database.User;
 
 public class PlcManagementActivity extends AppCompatActivity {
 
     private ActivityPlcManagementBinding binding;
     private AppDatabase db;
+    private User current_user;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intent = getIntent();
         db =  AppDatabase.getInstance(getApplicationContext());
+        current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
         updateList();
     }
 
@@ -68,6 +74,7 @@ public class PlcManagementActivity extends AppCompatActivity {
         PlcConfAdapter adapter = new PlcConfAdapter(confs);
         binding.confList.setAdapter(adapter);
         binding.setIsListmpty(confs.isEmpty());
+        binding.setUser(current_user);
     }
 
     public void deleteElement(int id) {

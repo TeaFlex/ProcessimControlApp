@@ -70,8 +70,6 @@ public class ModProfileActivity extends FormActivity {
 
 
         toastMessage(getString(R.string.mod_profile_done));
-        intent.setClass(this, WelcomeActivity.class);
-        startActivity(intent);
         finish();
     }
 }

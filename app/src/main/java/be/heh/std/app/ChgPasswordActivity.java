@@ -54,7 +54,6 @@ public class ChgPasswordActivity extends FormActivity {
         int id = Integer.parseInt(intent.getStringExtra("user_id"));
         db.userdao().updateUserPassword(id, getHashedPassword(newPassword.getText().toString()));
         toastMessage(getString(R.string.chg_password_done));
-        intent.setClass(this, WelcomeActivity.class);
         finish();
     }
 }

@@ -24,12 +24,13 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = getIntent();
-        ActivityWelcomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+        refreshContent();
+    }
 
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
-
-        binding.setUser(user);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshContent();
     }
 
     public void onWelcomeClickManager(View v) {
@@ -66,5 +67,12 @@ public class WelcomeActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    public void refreshContent() {
+        ActivityWelcomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        binding.setUser(user);
     }
 }

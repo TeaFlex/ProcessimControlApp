@@ -5,6 +5,8 @@
     tools:context=".PlcManagementActivity">
 
     <data>
+        <variable name="user" type="be.heh.std.model.database.User" />
+        <variable name="role" type="be.heh.std.model.core.Role" />
         <variable name="isListmpty" type="boolean" />
         <variable name="view" type="android.view.View" />
     </data>
@@ -74,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onPlcManageClick"
+                android:visibility="@{user.role == role.ADMIN || user.role == role.SUPER ? view.VISIBLE : view.GONE}"
                 android:text="@string/add_plc"
                 app:layout_constraintBottom_toTopOf="@id/plc_management_back"
                 android:layout_above="@id/plc_management_back" />
