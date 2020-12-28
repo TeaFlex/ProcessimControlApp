@@ -7,10 +7,8 @@ import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadPillsTask extends ReadTask {
 
-    private TextView textView;
-    public ReadPillsTask(TextView textView) {
-        super();
-        this.textView = textView;
+    public ReadPillsTask(TextView state) {
+        super(state);
     }
 
     @Override
@@ -40,7 +38,6 @@ public class ReadPillsTask extends ReadTask {
                 Integer res = connect();
                 S7OrderCode orderCode = new S7OrderCode();
                 Integer result = comS7.GetOrderCode(orderCode);
-                textView.setText(res.toString().equals("0") ? "UP" : "DOWN");
                 int numCPU = -1;
                 if (res.equals(0) && result.equals(0)) {
                     //Quelques exemples :

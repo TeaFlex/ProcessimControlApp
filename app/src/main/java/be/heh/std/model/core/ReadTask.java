@@ -1,8 +1,10 @@
 package be.heh.std.model.core;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -26,7 +28,10 @@ public abstract class ReadTask {
     protected String[] param = new String[10];
     protected byte[] datasPLC = new byte[512];
 
-    public ReadTask() {
+    protected TextView state;
+
+    public ReadTask(TextView state) {
+        this.state = state;
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         readThread = new Thread(plcS7);
@@ -85,7 +90,9 @@ public abstract class ReadTask {
 
         protected Integer connect() {
             comS7.SetConnectionType(S7.S7_BASIC);
-            return comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
+            Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
+            state.setText(res.toString().equals("0") ? "UP" : "DOWN");
+            return res;
         }
 
         protected void sendPostExecuteMessage() {

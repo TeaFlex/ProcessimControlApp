@@ -83,7 +83,7 @@ public class PlcManagementActivity extends AppCompatActivity {
                             .setPositiveButton(R.string.accept, (dialog, which) -> {
                                 Intent n = null;
                                 if(current_conf.type == PlcType.LIQUID) {
-                                    //TODO: liquid activity
+                                    n = new Intent(this, PlcLiquidActivity.class);
                                 }
                                 else if(current_conf.type == PlcType.PILLS) {
                                     n = new Intent(this, PlcPillsActivity.class);

@@ -1,14 +1,16 @@
 package be.heh.std.model.core;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadLiquidTask extends ReadTask {
 
-    public ReadLiquidTask() {
-        super();
+
+    public ReadLiquidTask(TextView state) {
+        super(state);
     }
 
     @Override
