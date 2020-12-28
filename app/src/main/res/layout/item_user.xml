@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <data>
+        <variable name="user" type="be.heh.std.model.database.User" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_tran"
+        android:id="@+id/user_item"
+        android:onClick="onAdminUserClick">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/user_del">
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/email+ `: ` + user.email}"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/first_name+ `: ` + user.firstname}"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/last_name+ `: ` + user.lastname}"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/user_id+ `: ` + user.id}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/role+ `: ` + user.role}"/>
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/user_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            style="@style/Widget.AppCompat.ActionButton.CloseMode"
+            android:onClick="onAdminUserClick"
+            />
+    </RelativeLayout>
+</layout>

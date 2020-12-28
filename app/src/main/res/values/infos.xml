@@ -15,4 +15,7 @@
     <string name="plc_deleted">PLC %d has been deleted.</string>
     <string name="plc_n">PLC %d</string>
     <string name="unauthorized">You are unauthorized to perform this action.</string>
+    <string name="user_del_confirmation">Are you sure to delete the user n°%d ?</string>
+    <string name="user_deleted">The user %d has been deleted.</string>
+    <string name="user_role_updated">Role of user %d updated !</string>
 </resources>

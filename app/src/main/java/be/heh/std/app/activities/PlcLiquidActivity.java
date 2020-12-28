@@ -1,8 +1,5 @@
 package be.heh.std.app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,10 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
 import be.heh.std.model.core.ReadLiquidTask;
-import be.heh.std.model.core.ReadPillsTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 import be.heh.std.model.database.User;
@@ -28,7 +27,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
     private ReadLiquidTask readS7;
     private NetworkInfo networkInfo;
     private ConnectivityManager connectivityManager;
-    ActivityPlcLiquidBinding binding;
+    private ActivityPlcLiquidBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

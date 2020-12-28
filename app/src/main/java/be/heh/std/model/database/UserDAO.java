@@ -19,8 +19,11 @@ public interface UserDAO {
     @Query("DELETE FROM user WHERE id = :id;")
     void deleteUserById(int id);
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user;")
     List<User> getAllUsers();
+
+    @Query("SELECT * FROM user WHERE id NOT IN (:id);")
+    List<User> getAllUsersExcept(int id);
 
     @Query("SELECT * FROM user WHERE id = :id;")
     User getUserById(int id);
@@ -41,5 +44,8 @@ public interface UserDAO {
 
     @Query("UPDATE user SET password = :password WHERE id = :id;")
     void updateUserPassword(int id, String password);
+
+    @Query("UPDATE user SET role = :newRole WHERE id = :id;")
+    void updateUserRole(int id, Role newRole);
 
 }

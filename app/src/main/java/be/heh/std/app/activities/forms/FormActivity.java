@@ -1,6 +1,5 @@
 package be.heh.std.app.activities.forms;
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -18,7 +17,6 @@ import java.util.regex.Pattern;
 
 import be.heh.std.app.R;
 import be.heh.std.imported.security.PasswordAuthentication;
-import be.heh.std.model.thread.AsyncExecutor;
 
 public abstract class FormActivity extends AppCompatActivity {
 

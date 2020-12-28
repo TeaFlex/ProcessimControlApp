@@ -9,51 +9,50 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
 import be.heh.std.app.R;
-import be.heh.std.app.databinding.ItemPlcBinding;
-import be.heh.std.model.database.PlcConf;
+import be.heh.std.app.databinding.ItemUserBinding;
+import be.heh.std.model.database.User;
 
-public class PlcConfAdapter extends BaseAdapter {
-    private ArrayList<PlcConf> confs;
+public class UserAdapter extends BaseAdapter {
+    private ArrayList<User> users;
     private LayoutInflater layoutInflater;
 
-    public PlcConfAdapter(ArrayList<PlcConf> confs) {
-        this.confs = confs;
+    public UserAdapter(ArrayList<User> users) {
+        this.users = users;
     }
-
     @Override
     public int getCount() {
-        return confs.size();
+        return users.size();
     }
 
     @Override
-    public PlcConf getItem(int position) {
-        return confs.get(position);
+    public User getItem(int position) {
+        return users.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return confs.get(position).id;
+        return users.get(position).id;
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         View result = view;
-        ItemPlcBinding binding;
-        PlcConf current_conf = confs.get(position);
+        ItemUserBinding binding;
+        User current_user = users.get(position);
         if(view == null) {
             if(layoutInflater == null) {
                 layoutInflater = (LayoutInflater) parent.getContext().
                         getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             }
-            binding = ItemPlcBinding.inflate(layoutInflater, parent, false);
+            binding = ItemUserBinding.inflate(layoutInflater, parent, false);
             result = binding.getRoot();
             result.setTag(binding);
         }
         else
-            binding = (ItemPlcBinding) result.getTag();
-        binding.plcDel.setTag(current_conf.id);
-        result.setTag(R.id.plc_del, current_conf.id);
-        binding.setPlc(current_conf);
+            binding = (ItemUserBinding) result.getTag();
+        binding.userDel.setTag(current_user.id);
+        result.setTag(R.id.user_del, current_user.id);
+        binding.setUser(current_user);
         return result;
     }
 }
