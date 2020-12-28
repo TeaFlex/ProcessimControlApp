@@ -1,9 +1,8 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Arrays;
 
+import be.heh.std.app.R;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 

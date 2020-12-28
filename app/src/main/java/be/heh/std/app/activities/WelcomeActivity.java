@@ -1,6 +1,5 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +8,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import be.heh.std.app.R;
+import be.heh.std.app.activities.forms.ChgPasswordActivity;
+import be.heh.std.app.activities.forms.LoginActivity;
+import be.heh.std.app.activities.forms.ModProfileActivity;
 import be.heh.std.app.databinding.ActivityWelcomeBinding;
 import be.heh.std.model.database.AppDatabase;
-import be.heh.std.model.thread.AsyncExecutor;
 import be.heh.std.model.database.User;
 
 public class WelcomeActivity extends AppCompatActivity {

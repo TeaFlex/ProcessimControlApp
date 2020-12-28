@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
 import be.heh.std.model.core.ReadLiquidTask;
 import be.heh.std.model.core.ReadPillsTask;

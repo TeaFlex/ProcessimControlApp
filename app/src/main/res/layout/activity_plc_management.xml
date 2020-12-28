@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".PlcManagementActivity">
+    tools:context=".activities.PlcManagementActivity">
 
     <data>
         <variable name="user" type="be.heh.std.model.database.User" />

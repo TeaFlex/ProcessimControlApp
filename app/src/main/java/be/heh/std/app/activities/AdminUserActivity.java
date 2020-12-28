@@ -1,8 +1,10 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import be.heh.std.app.R;
 
 public class AdminUserActivity extends AppCompatActivity {
 

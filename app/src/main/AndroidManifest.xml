@@ -12,17 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PlcLiquidActivity"></activity>
-        <activity android:name=".PlcPillsActivity" />
-        <activity android:name=".AddPlcActivity" />
-        <activity android:name=".PlcManagementActivity" />
-        <activity android:name=".AdminUserActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".ModProfileActivity" />
-        <activity android:name=".ChgPasswordActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".activities.PlcLiquidActivity"></activity>
+        <activity android:name=".activities.PlcPillsActivity" />
+        <activity android:name=".activities.forms.AddPlcActivity" />
+        <activity android:name=".activities.PlcManagementActivity" />
+        <activity android:name=".activities.AdminUserActivity" />
+        <activity android:name=".activities.WelcomeActivity" />
+        <activity android:name=".activities.forms.ModProfileActivity" />
+        <activity android:name=".activities.forms.ChgPasswordActivity" />
+        <activity android:name=".activities.forms.RegisterActivity" />
+        <activity android:name=".activities.forms.LoginActivity" />
+        <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

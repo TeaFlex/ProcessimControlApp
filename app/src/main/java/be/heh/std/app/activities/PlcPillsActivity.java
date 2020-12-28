@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcPillsBinding;
 import be.heh.std.model.core.ReadPillsTask;
 import be.heh.std.model.database.AppDatabase;

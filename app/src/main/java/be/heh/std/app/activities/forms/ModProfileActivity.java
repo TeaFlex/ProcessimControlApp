@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import java.util.Arrays;
 import java.util.Objects;
 
+import be.heh.std.app.R;
+import be.heh.std.app.activities.FormActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 

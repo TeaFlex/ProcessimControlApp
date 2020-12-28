@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.Spinner;
 
 import java.util.Arrays;
 
+import be.heh.std.app.R;
 import be.heh.std.model.database.PlcType;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;

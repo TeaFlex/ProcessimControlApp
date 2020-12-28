@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.app.Activity;
 import android.os.Build;
@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import be.heh.std.app.R;
 import be.heh.std.imported.security.PasswordAuthentication;
 import be.heh.std.model.thread.AsyncExecutor;
 

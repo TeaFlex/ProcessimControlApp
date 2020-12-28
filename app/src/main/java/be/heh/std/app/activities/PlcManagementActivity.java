@@ -1,4 +1,4 @@
-package be.heh.std.app;
+package be.heh.std.app.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil;
 
 import java.util.ArrayList;
 
+import be.heh.std.app.R;
+import be.heh.std.app.activities.forms.AddPlcActivity;
 import be.heh.std.app.adapters.PlcConfAdapter;
 import be.heh.std.app.databinding.ActivityPlcManagementBinding;
 import be.heh.std.model.database.PlcType;

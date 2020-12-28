@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@drawable/gradient_1"
-    tools:context=".LoginActivity"
+    tools:context=".activities.forms.LoginActivity"
     tools:ignore="MissingClass">
 
     <androidx.constraintlayout.widget.ConstraintLayout
