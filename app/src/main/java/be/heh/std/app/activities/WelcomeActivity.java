@@ -58,13 +58,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 temp = new Intent(this,  AdminUserActivity.class);
                 temp.putExtras(intent);
                 startActivity(temp);
-                //TODO
                 break;
             case R.id.plc_management:
                 temp = new Intent(this, PlcManagementActivity.class);
                 temp.putExtras(intent);
                 startActivity(temp);
-                //TODO
                 break;
             default:
                 break;
