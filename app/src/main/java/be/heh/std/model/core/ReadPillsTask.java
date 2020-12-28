@@ -1,14 +1,16 @@
 package be.heh.std.model.core;
 
-import android.util.Log;
+import android.widget.TextView;
 
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadPillsTask extends ReadTask {
 
-    public ReadPillsTask() {
+    private TextView textView;
+    public ReadPillsTask(TextView textView) {
         super();
+        this.textView = textView;
     }
 
     @Override
@@ -38,6 +40,7 @@ public class ReadPillsTask extends ReadTask {
                 Integer res = connect();
                 S7OrderCode orderCode = new S7OrderCode();
                 Integer result = comS7.GetOrderCode(orderCode);
+                textView.setText(res.toString().equals("0") ? "UP" : "DOWN");
                 int numCPU = -1;
                 if (res.equals(0) && result.equals(0)) {
                     //Quelques exemples :
@@ -58,7 +61,7 @@ public class ReadPillsTask extends ReadTask {
                             data = S7.GetWordAt(datasPLC, 0);
                             sendProgressMessage(data);
                         }
-                        Log.i("Variable A.P.I. -> ", String.valueOf(data));
+                        //Log.i("Variable A.P.I. -> ", String.valueOf(data));
                     }
                     try {
                         Thread.sleep(500);
@@ -69,7 +72,7 @@ public class ReadPillsTask extends ReadTask {
                 sendPostExecuteMessage();
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
 
         }

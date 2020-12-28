@@ -32,6 +32,10 @@ public abstract class ReadTask {
         readThread = new Thread(plcS7);
     }
 
+    public boolean isReading() {
+        return isRunning.get();
+    }
+
     public void stop() {
         isRunning.set(false);
         comS7.Disconnect();
@@ -42,7 +46,8 @@ public abstract class ReadTask {
         if(!readThread.isAlive()) {
             param[0] = ip;
             param[1] = rack;
-            param[3] = slot;
+            param[2] = slot;
+
 
             readThread.start();
             isRunning.set(true);
@@ -57,7 +62,7 @@ public abstract class ReadTask {
 
     protected abstract void downloadOnPostExecute();
 
-    protected Handler monHandler = new Handler(Looper.getMainLooper()) {
+    protected Handler monHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {

@@ -4,11 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".PlcPillsActivity">
     <data>
-
+        <variable name="conf" type="be.heh.std.model.database.PlcConf" />
+        <variable name="user" type="be.heh.std.model.database.User" />
+        <variable name="view" type="android.view.View" />
+        <variable name="role" type="be.heh.std.model.database.Role" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_1">
+
+            <LinearLayout
+                android:id="@+id/info_block_pills"
+                android:layout_width="@dimen/block_width"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white_tran"
+                app:layout_constraintBottom_toTopOf="@+id/read_block_pills"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{conf.ip}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{conf.rack}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{conf.slot}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/read_block_pills"
+                android:layout_width="@dimen/block_width"
+                android:layout_height="wrap_content"
+                android:background="@color/white_tran"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/write_block_pills"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info_block_pills">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read"
+                    android:textSize="@dimen/title_size" />
+
+                <TextView
+                    android:id="@+id/connection_test_pills"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/write_block_pills"
+                android:layout_width="@dimen/block_width"
+                android:layout_height="wrap_content"
+                android:background="@color/white_tran"
+                android:orientation="vertical"
+                android:visibility="@{user.role != role.BASIC ? view.VISIBLE : view.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/read_block_pills">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/write"
+                    android:textSize="@dimen/title_size" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

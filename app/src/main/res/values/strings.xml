@@ -39,5 +39,6 @@
     <string name="manage_plc">PLC management</string>
     <string name="old_password">Old password</string>
     <string name="user_disconnect">Disconnect</string>
-
+    <string name="read">READ</string>
+    <string name="write">WRITE</string>
 </resources>

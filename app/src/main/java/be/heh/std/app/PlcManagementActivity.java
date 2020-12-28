@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import be.heh.std.app.adapters.PlcConfAdapter;
 import be.heh.std.app.databinding.ActivityPlcManagementBinding;
+import be.heh.std.model.database.PlcType;
 import be.heh.std.model.database.Role;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
@@ -73,8 +74,29 @@ public class PlcManagementActivity extends AppCompatActivity {
                 break;
             case R.id.plc_item:
                 received_id = Integer.parseInt(v.getTag(R.id.plc_del).toString());
-                Toast.makeText(getApplicationContext(), v.getTag(R.id.plc_del).toString(),
-                        Toast.LENGTH_LONG).show();
+                PlcConf current_conf = getPlcConf(received_id);
+                if(current_conf != null) {
+                    new AlertDialog.Builder(this)
+                            .setMessage(getString(R.string.connect_plc_msg,
+                                    getString(R.string.plc_n, received_id)))
+                            .setNegativeButton(R.string.cancel, null)
+                            .setPositiveButton(R.string.accept, (dialog, which) -> {
+                                Intent n = null;
+                                if(current_conf.type == PlcType.LIQUID) {
+                                    //TODO: liquid activity
+                                }
+                                else if(current_conf.type == PlcType.PILLS) {
+                                    n = new Intent(this, PlcPillsActivity.class);
+                                }
+                                else finish();
+
+                                n.putExtras(intent);
+                                n.putExtra("plc_id", current_conf.id);
+                                startActivity(n);
+                            })
+                            .create()
+                            .show();
+                }
                 break;
         }
     }
@@ -91,5 +113,9 @@ public class PlcManagementActivity extends AppCompatActivity {
     public void deleteElement(int id) {
         db.plcConfDAO().deleteConfById(id);
         updateList();
+    }
+
+    public PlcConf getPlcConf(int id) {
+        return db.plcConfDAO().getConfById(id);
     }
 }
