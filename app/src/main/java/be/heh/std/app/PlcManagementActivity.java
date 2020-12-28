@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import be.heh.std.app.adapters.PlcConfAdapter;
 import be.heh.std.app.databinding.ActivityPlcManagementBinding;
-import be.heh.std.model.core.Role;
+import be.heh.std.model.database.Role;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 import be.heh.std.model.database.User;
@@ -41,6 +41,7 @@ public class PlcManagementActivity extends AppCompatActivity {
     }
 
     public void onPlcManageClick(View v) {
+
         switch (v.getId()) {
             case R.id.plc_management_back:
                 finish();
@@ -49,7 +50,6 @@ public class PlcManagementActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AddPlcActivity.class));
                 break;
             case R.id.plc_del:
-
                 int received_id = Integer.parseInt(v.getTag().toString());
                 if(current_user.role == Role.BASIC)
                     Toast.makeText(this,
@@ -70,6 +70,10 @@ public class PlcManagementActivity extends AppCompatActivity {
                             .show();
                 }
 
+                break;
+            case R.id.plc_item:
+                received_id = Integer.parseInt(v.getTag(R.id.plc_del).toString());
+                Toast.makeText(getApplicationContext(), v.getTag(R.id.plc_del).toString(), Toast.LENGTH_LONG).show();
                 break;
         }
     }

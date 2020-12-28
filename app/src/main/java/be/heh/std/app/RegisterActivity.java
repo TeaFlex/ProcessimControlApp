@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
-import be.heh.std.model.core.Role;
+import be.heh.std.model.database.Role;
 
 public class RegisterActivity extends FormActivity {
 

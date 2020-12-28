@@ -7,10 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import be.heh.std.model.core.PlcType;
+import be.heh.std.model.database.PlcType;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 

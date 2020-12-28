@@ -1,6 +1,5 @@
 package be.heh.std.app.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,28 +51,7 @@ public class PlcConfAdapter extends BaseAdapter {
         }
         else
             binding = (ItemPlcBinding) result.getTag();
-        binding.plcDel.setTag(current_conf.id);
-        /*result.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                return false;
-            }
-        });
-
-        /*result.setOnClickListener(v -> {
-            Context c = parent.getContext();
-
-            String desc = String.format("%d (%s)", current_conf.id, current_conf.ip);
-            new AlertDialog.Builder(c)
-                    .setMessage(c.getString(R.string.connect_plc_msg, desc))
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.accept, (dialog, which) -> {
-                        //TODO: start activity connect to plc
-
-                    })
-                    .show();
-        });*/
+        result.setTag(R.id.plc_del, current_conf.id);
         binding.setPlc(current_conf);
         return result;
     }

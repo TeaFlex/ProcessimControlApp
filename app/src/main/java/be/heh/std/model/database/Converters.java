@@ -2,9 +2,6 @@ package be.heh.std.model.database;
 
 import androidx.room.TypeConverter;
 
-import be.heh.std.model.core.PlcType;
-import be.heh.std.model.core.Role;
-
 public class Converters {
 
     @TypeConverter

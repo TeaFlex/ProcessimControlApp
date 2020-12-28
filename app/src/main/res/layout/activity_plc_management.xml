@@ -6,7 +6,7 @@
 
     <data>
         <variable name="user" type="be.heh.std.model.database.User" />
-        <variable name="role" type="be.heh.std.model.core.Role" />
+        <variable name="role" type="be.heh.std.model.database.Role" />
         <variable name="isListmpty" type="boolean" />
         <variable name="view" type="android.view.View" />
     </data>
