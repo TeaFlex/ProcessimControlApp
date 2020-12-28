@@ -1,4 +1,4 @@
-package be.heh.std.app.activities;
+package be.heh.std.app.activities.forms;
 
 import android.app.Activity;
 import android.os.Build;

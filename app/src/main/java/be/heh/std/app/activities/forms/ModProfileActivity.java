@@ -1,4 +1,4 @@
-package be.heh.std.app.activities;
+package be.heh.std.app.activities.forms;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import be.heh.std.app.R;
-import be.heh.std.app.activities.FormActivity;
+import be.heh.std.app.activities.forms.FormActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 

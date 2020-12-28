@@ -1,4 +1,4 @@
-package be.heh.std.app.activities;
+package be.heh.std.app.activities.forms;
 
 import android.content.Intent;
 import android.os.Build;
@@ -12,8 +12,8 @@ import androidx.annotation.RequiresApi;
 import java.util.Arrays;
 
 import be.heh.std.app.R;
-import be.heh.std.app.activities.FormActivity;
-import be.heh.std.app.activities.LoginActivity;
+import be.heh.std.app.activities.forms.FormActivity;
+import be.heh.std.app.activities.forms.LoginActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 import be.heh.std.model.database.Role;
