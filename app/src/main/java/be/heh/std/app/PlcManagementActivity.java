@@ -73,7 +73,8 @@ public class PlcManagementActivity extends AppCompatActivity {
                 break;
             case R.id.plc_item:
                 received_id = Integer.parseInt(v.getTag(R.id.plc_del).toString());
-                Toast.makeText(getApplicationContext(), v.getTag(R.id.plc_del).toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), v.getTag(R.id.plc_del).toString(),
+                        Toast.LENGTH_LONG).show();
                 break;
         }
     }

@@ -51,6 +51,7 @@ public class PlcConfAdapter extends BaseAdapter {
         }
         else
             binding = (ItemPlcBinding) result.getTag();
+        binding.plcDel.setTag(current_conf.id);
         result.setTag(R.id.plc_del, current_conf.id);
         binding.setPlc(current_conf);
         return result;
