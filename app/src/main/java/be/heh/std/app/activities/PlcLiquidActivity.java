@@ -37,7 +37,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
-        readS7 = new ReadLiquidTask(binding.connectionTestLiquid);
+        readS7 = new ReadLiquidTask(binding.connectionTestLiquid, 5);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();

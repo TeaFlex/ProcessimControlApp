@@ -7,8 +7,19 @@ import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadPillsTask extends ReadTask {
 
-    public ReadPillsTask(TextView state) {
-        super(state);
+    private TextView nb_pills;
+    private TextView nb_bottles;
+    private TextView progress;
+
+    public ReadPillsTask(TextView net_status, TextView nb_pills,
+                         TextView nb_bottles, TextView progress, int datablock) {
+        super(net_status, datablock);
+        this.nb_bottles = nb_bottles;
+        this.nb_pills = nb_pills;
+        this.progress = progress;
+
+        dbb.add(15, new byte[16]);
+        dbb.add(16, new byte[16]);
     }
 
     @Override
@@ -17,18 +28,19 @@ public class ReadPillsTask extends ReadTask {
     }
 
     @Override
-    protected void downloadOnPreExecute(int t) {
-
+    protected void downloadOnPreExecute(int... values) {
+        nb_pills.setText(String.valueOf(values[0]));
+        nb_bottles.setText(String.valueOf(values[1]));
     }
 
     @Override
-    protected void downloadOnProgressUpdate(int progress) {
-
+    protected void downloadOnProgressUpdate(int prog) {
+        progress.setText(String.format("%d %", prog));
     }
 
     @Override
     protected void downloadOnPostExecute() {
-
+        progress.setText("-");
     }
 
     private class PillsAutomateS7 extends AutomateS7 {
@@ -39,26 +51,32 @@ public class ReadPillsTask extends ReadTask {
                 S7OrderCode orderCode = new S7OrderCode();
                 Integer result = comS7.GetOrderCode(orderCode);
                 int numCPU = -1;
-                if (res.equals(0) && result.equals(0)) {
-                    //Quelques exemples :
-                    // WinAC : 6ES7 611-4SB00-0YB7
-                    // S7-315 2DPPN : 6ES7 315-4EH13-0AB0
-                    // S7-1214C : 6ES7 214-1BG40-0XB0
-                    // Récupérer le code CPU  611 OU 315 OU 214
+
+                if (res.equals(0) && result.equals(0))
                     numCPU = Integer.parseInt(orderCode.Code().substring(5, 8));
-                }
-                else numCPU = 0000;
+                else
+                    numCPU = 0000;
+
                 sendPreExecuteMessage(numCPU);
 
                 while(isRunning.get()){
                     if (res.equals(0)){
-                        int retInfo = comS7.ReadArea(S7.S7AreaDB,5,9,2, datasPLC);
+                        int retInfo = comS7.ReadArea(S7.S7AreaDB,getDatablock(),9,2, datasPLC);
                         int data = 0;
                         if (retInfo == 0) {
                             data = S7.GetWordAt(datasPLC, 0);
                             sendProgressMessage(data);
+                            //Beginning of working zone
+
+                            comS7.ReadArea(S7.S7AreaDB, getDatablock(), 16, 2, dbb.get(16));
+                            comS7.ReadArea(S7.S7AreaDB, getDatablock(), 15, 2, dbb.get(15));
+
+                            int pills = S7.GetWordAt(dbb.get(15), 0);
+                            int bottles = S7.GetWordAt(dbb.get(16), 0);
+
+                            sendPreExecuteMessage(pills, bottles);
+                            //End of working zone
                         }
-                        //Log.i("Variable A.P.I. -> ", String.valueOf(data));
                     }
                     try {
                         Thread.sleep(500);

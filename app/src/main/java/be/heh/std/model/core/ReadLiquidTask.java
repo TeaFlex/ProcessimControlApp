@@ -1,6 +1,5 @@
 package be.heh.std.model.core;
 
-import android.util.Log;
 import android.widget.TextView;
 
 import be.heh.std.imported.simaticS7.S7;
@@ -9,8 +8,8 @@ import be.heh.std.imported.simaticS7.S7OrderCode;
 public class ReadLiquidTask extends ReadTask {
 
 
-    public ReadLiquidTask(TextView state) {
-        super(state);
+    public ReadLiquidTask(TextView net_status, int datablock) {
+        super(net_status, datablock);
     }
 
     @Override
@@ -19,7 +18,7 @@ public class ReadLiquidTask extends ReadTask {
     }
 
     @Override
-    protected void downloadOnPreExecute(int t) {
+    protected void downloadOnPreExecute(int... values) {
 
     }
 
@@ -42,11 +41,6 @@ public class ReadLiquidTask extends ReadTask {
                 Integer result = comS7.GetOrderCode(orderCode);
                 int numCPU = -1;
                 if (res.equals(0) && result.equals(0)) {
-                    //Quelques exemples :
-                    // WinAC : 6ES7 611-4SB00-0YB7
-                    // S7-315 2DPPN : 6ES7 315-4EH13-0AB0
-                    // S7-1214C : 6ES7 214-1BG40-0XB0
-                    // Récupérer le code CPU  611 OU 315 OU 214
                     numCPU = Integer.parseInt(orderCode.Code().substring(5, 8));
                 }
                 else numCPU = 0000;
@@ -54,13 +48,15 @@ public class ReadLiquidTask extends ReadTask {
 
                 while(isRunning.get()){
                     if (res.equals(0)){
-                        int retInfo = comS7.ReadArea(S7.S7AreaDB,5,9,2,datasPLC);
+                        int retInfo = comS7.ReadArea(S7.S7AreaDB, getDatablock(),9,2,datasPLC);
                         int data=0;
                         if (retInfo ==0) {
                             data = S7.GetWordAt(datasPLC, 0);
                             sendProgressMessage(data);
+                            //Beginning of working zone
+
+                            //End of working zone
                         }
-                        Log.i("Variable A.P.I. -> ", String.valueOf(data));
                     }
                     try {
                         Thread.sleep(500);

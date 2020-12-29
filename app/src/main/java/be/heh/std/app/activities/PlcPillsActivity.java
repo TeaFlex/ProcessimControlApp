@@ -37,7 +37,7 @@ public class PlcPillsActivity extends AppCompatActivity {
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
-        readS7 = new ReadPillsTask(binding.connectionTestPills);
+        readS7 = new ReadPillsTask(binding.connectionTestPills, binding.rNbPills, binding.rNbBottles, binding.rPillsProgress, 5);
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
         binding.setConf(current_conf);

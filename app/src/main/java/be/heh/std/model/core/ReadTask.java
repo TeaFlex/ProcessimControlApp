@@ -1,13 +1,13 @@
 package be.heh.std.model.core;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.std.imported.simaticS7.S7;
@@ -28,13 +28,23 @@ public abstract class ReadTask {
     protected String[] param = new String[10];
     protected byte[] datasPLC = new byte[512];
 
-    protected TextView state;
+    private int datablock;
+    protected ArrayList<byte[]> dbb;
 
-    public ReadTask(TextView state) {
-        this.state = state;
+    //Text view giving network state of the plc.
+    private TextView net_status;
+
+    public ReadTask(TextView net_status, int datablock) {
+        this.net_status = net_status;
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         readThread = new Thread(plcS7);
+        dbb = new ArrayList<>();
+        this.datablock = datablock;
+    }
+
+    public int getDatablock() {
+        return datablock;
     }
 
     public boolean isReading() {
@@ -61,7 +71,7 @@ public abstract class ReadTask {
 
     protected abstract AutomateS7 getAutomateS7();
 
-    protected abstract void downloadOnPreExecute(int t);
+    protected abstract void downloadOnPreExecute(int... values);
 
     protected abstract void downloadOnProgressUpdate(int progress);
 
@@ -72,7 +82,7 @@ public abstract class ReadTask {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case MESSAGE_PRE_EXECUTE:
-                    downloadOnPreExecute(msg.arg1);
+                    downloadOnPreExecute(msg.getData().getIntArray("value_list"));
                     break;
                 case MESSAGE_PROGRESS_UPDATE:
                     downloadOnProgressUpdate(msg.arg1);
@@ -91,7 +101,7 @@ public abstract class ReadTask {
         protected Integer connect() {
             comS7.SetConnectionType(S7.S7_BASIC);
             Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
-            state.setText(res.toString().equals("0") ? "UP" : "DOWN");
+            net_status.setText(res.toString().equals("0") ? "UP" : "DOWN");
             return res;
         }
 
@@ -101,10 +111,12 @@ public abstract class ReadTask {
             monHandler.sendMessage(postExecuteMsg);
         }
 
-        protected void sendPreExecuteMessage(int v) {
+        protected void sendPreExecuteMessage(int... values) {
             Message preExecuteMsg = new Message();
+            Bundle data = new Bundle();
+            data.putIntArray("value_list", values);
             preExecuteMsg.what = MESSAGE_PRE_EXECUTE;
-            preExecuteMsg.arg1 = v;
+            preExecuteMsg.setData(data);
             monHandler.sendMessage(preExecuteMsg);
         }
 
