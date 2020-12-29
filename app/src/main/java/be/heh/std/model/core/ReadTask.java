@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.std.imported.simaticS7.S7;
@@ -29,7 +30,7 @@ public abstract class ReadTask {
     protected byte[] datasPLC = new byte[512];
 
     private int datablock;
-    protected ArrayList<byte[]> dbb;
+    protected HashMap<Integer, byte[]> dbb;
 
     //Text view giving network state of the plc.
     private TextView net_status;
@@ -39,7 +40,7 @@ public abstract class ReadTask {
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         readThread = new Thread(plcS7);
-        dbb = new ArrayList<>();
+        dbb = new HashMap<Integer, byte[]>();
         this.datablock = datablock;
     }
 

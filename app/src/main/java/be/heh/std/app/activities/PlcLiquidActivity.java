@@ -6,10 +6,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
+import java.util.HashMap;
 
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
@@ -37,7 +40,13 @@ public class PlcLiquidActivity extends AppCompatActivity {
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
-        readS7 = new ReadLiquidTask(binding.connectionTestLiquid, 5);
+        HashMap<Integer, TextView> valves = new HashMap<>();
+        valves.put(1, binding.valve1);
+        valves.put(2, binding.valve2);
+        valves.put(3, binding.valve3);
+        valves.put(4, binding.valve4);
+        readS7 = new ReadLiquidTask(valves, binding.liquidLvl, binding.reference, binding.mode, binding.pilot,
+                binding.auto, binding.manual, binding.isRemote, binding.rLiquidProgress, binding.connectionTestLiquid, 5);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
