@@ -23,13 +23,11 @@ public class ReadLiquidTask extends ReadTask {
     private TextView auto_deposit;
     private TextView manual_deposit;
     private TextView is_remote_controlled;
-    private ProgressBar progress;
 
     public ReadLiquidTask(HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
                           TextView mode, TextView pilot, TextView auto_deposit,
                           TextView manual_deposit, TextView is_remote_controlled,
-                          ProgressBar progressBar, TextView net_status,
-                          int datablock) {
+                          TextView net_status, int datablock) {
         super(net_status, datablock);
         this.valves = valves;
         this.liquid_lvl = liquid_lvl;
@@ -39,7 +37,6 @@ public class ReadLiquidTask extends ReadTask {
         this.auto_deposit = auto_deposit;
         this.manual_deposit = manual_deposit;
         this.is_remote_controlled = is_remote_controlled;
-        this.progress = progressBar;
 
         //valves, mode and remote
         dbb.put(0, new byte[16]);
@@ -77,11 +74,6 @@ public class ReadLiquidTask extends ReadTask {
     }
 
     @Override
-    protected void downloadOnProgressUpdate(int prog) {
-        progress.setProgress(prog);
-    }
-
-    @Override
     protected void downloadOnPostExecute() {
         Resources r = Resources.getSystem();
         for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
@@ -97,77 +89,51 @@ public class ReadLiquidTask extends ReadTask {
     }
 
     private class LiquidAutomateS7 extends AutomateS7 {
+
         @Override
-        public void run() {
-            try {
-                Integer res = connect();
-                S7OrderCode orderCode = new S7OrderCode();
-                Integer result = comS7.GetOrderCode(orderCode);
-                int numCPU = -1;
-                if (res.equals(0) && result.equals(0)) {
-                    numCPU = Integer.parseInt(orderCode.Code().substring(5, 8));
-                }
-                else numCPU = 0000;
-                sendPreExecuteMessage(numCPU);
+        protected void toRun(int numCPU) {
+            int retInfo = comS7.ReadArea(S7.S7AreaDB, getDatablock(),
+                    9,2,datasPLC);
 
-                while(isRunning.get()){
-                    if (res.equals(0)){
-                        int retInfo = comS7.ReadArea(S7.S7AreaDB, getDatablock(),
-                                9,2,datasPLC);
+            retInfo = Math.max(byteReader(), retInfo);
+            retInfo = Math.max(intReader(), retInfo);
 
-                        retInfo = Math.max(byteReader(), retInfo);
-                        retInfo = Math.max(intReader(), retInfo);
+            Log.i("retInfo", String.valueOf(retInfo));
 
-                        Log.i("retInfo", String.valueOf(retInfo));
+            int init_data = 0;
 
-                        int init_data = 0;
-
-                        int[] valves_data = {0,0,0,0};
-                        int manual_deposit_data = 0;
-                        int automatic_deposit_data = 0;
-                        int liquid_level_data = 0;
-                        int pilot_data = 0;
-                        int mode_data = 0;
-                        int remote_data = 0;
+            int[] valves_data = {0,0,0,0};
+            int manual_deposit_data = 0;
+            int automatic_deposit_data = 0;
+            int liquid_level_data = 0;
+            int pilot_data = 0;
+            int mode_data = 0;
+            int remote_data = 0;
 
 
-                        if (retInfo == 0) {
-                            init_data = S7.GetWordAt(datasPLC, 0);
+            if (retInfo == 0) {
+                init_data = S7.GetWordAt(datasPLC, 0);
 
-                            //Beginning of working zone
+                //Beginning of working zone
 
-                            //Decimal values
-                            liquid_level_data = S7.GetWordAt(dbw.get(16),0);
-                            automatic_deposit_data = S7.GetWordAt(dbw.get(18), 0);
-                            manual_deposit_data = S7.GetWordAt(dbw.get(20),0);
-                            pilot_data = S7.GetWordAt(dbw.get(22),0);
+                //Decimal values
+                liquid_level_data = S7.GetWordAt(dbw.get(16),0);
+                automatic_deposit_data = S7.GetWordAt(dbw.get(18), 0);
+                manual_deposit_data = S7.GetWordAt(dbw.get(20),0);
+                pilot_data = S7.GetWordAt(dbw.get(22),0);
 
-                            //Binary values
-                            for (int i = 0; i < valves_data.length; i++)
-                                valves_data[i] = S7.GetBitAt(dbb.get(0), 0, i+1)? 1 : 0;
-                            mode_data = S7.GetBitAt(dbb.get(0), 0,5)? 0 : 1;
-                            remote_data = S7.GetBitAt(dbb.get(0), 0, 6)? 0 : 1;
+                //Binary values
+                for (int i = 0; i < valves_data.length; i++)
+                    valves_data[i] = S7.GetBitAt(dbb.get(0), 0, i+1)? 1 : 0;
+                mode_data = S7.GetBitAt(dbb.get(0), 0,5)? 0 : 1;
+                remote_data = S7.GetBitAt(dbb.get(0), 0, 6)? 0 : 1;
 
-                            //End of working zone
+                //End of working zone
 
-                            sendProgressMessage(init_data);
-                            sendPreExecuteMessage(valves_data[0], valves_data[1], valves_data[2],
-                                    valves_data[3], manual_deposit_data, automatic_deposit_data,
-                                    liquid_level_data, pilot_data, mode_data, remote_data, numCPU);
-                        }
-                    }
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                sendPostExecuteMessage();
-
-            } catch (Exception e) {
-                e.getStackTrace();
+                sendPreExecuteMessage(valves_data[0], valves_data[1], valves_data[2],
+                        valves_data[3], manual_deposit_data, automatic_deposit_data,
+                        liquid_level_data, pilot_data, mode_data, remote_data, numCPU);
             }
-
         }
     }
 }

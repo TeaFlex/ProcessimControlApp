@@ -1,5 +1,6 @@
 package be.heh.std.model.core.read;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7Client;
+import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public abstract class ReadTask {
 
@@ -78,19 +80,15 @@ public abstract class ReadTask {
 
     protected abstract void downloadOnPreExecute(int... values);
 
-    protected abstract void downloadOnProgressUpdate(int progress);
-
     protected abstract void downloadOnPostExecute();
 
+    @SuppressLint("HandlerLeak")
     protected Handler monHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what) {
                 case MESSAGE_PRE_EXECUTE:
                     downloadOnPreExecute(msg.getData().getIntArray("value_list"));
-                    break;
-                case MESSAGE_PROGRESS_UPDATE:
-                    downloadOnProgressUpdate(msg.arg1);
                     break;
                 case MESSAGE_POST_EXECUTE:
                     downloadOnPostExecute();
@@ -103,9 +101,41 @@ public abstract class ReadTask {
 
     protected abstract class AutomateS7 implements Runnable {
 
+        protected abstract void toRun(int numCPU);
+
+        @Override
+        public void run() {
+            try {
+                Integer res = connect();
+                S7OrderCode orderCode = new S7OrderCode();
+                Integer result = comS7.GetOrderCode(orderCode);
+                int numCPU = -1;
+
+                if (res.equals(0) && result.equals(0))
+                    numCPU = Integer.parseInt(orderCode.Code().substring(5, 8));
+                else
+                    numCPU = 0000;
+
+                while(isRunning.get()){
+                    if (res.equals(0))
+                        toRun(numCPU);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                sendPostExecuteMessage();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         protected Integer connect() {
             comS7.SetConnectionType(S7.S7_BASIC);
             Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
+            if(!res.toString().equals("0")) downloadOnPostExecute();
             net_status.setText(res.toString().equals("0") ? R.string.up : R.string.down);
             return res;
         }
@@ -123,13 +153,6 @@ public abstract class ReadTask {
             preExecuteMsg.what = MESSAGE_PRE_EXECUTE;
             preExecuteMsg.setData(data);
             monHandler.sendMessage(preExecuteMsg);
-        }
-
-        protected void sendProgressMessage(int i) {
-            Message progressMsg = new Message();
-            progressMsg.what = MESSAGE_PROGRESS_UPDATE;
-            progressMsg.arg1 = i;
-            monHandler.sendMessage(progressMsg);
         }
 
         protected int byteReader() {

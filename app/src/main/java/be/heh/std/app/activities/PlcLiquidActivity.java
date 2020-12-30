@@ -17,6 +17,7 @@ import java.util.HashMap;
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
 import be.heh.std.model.core.read.ReadLiquidTask;
+import be.heh.std.model.core.write.WriteLiquidTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 import be.heh.std.model.database.User;
@@ -28,6 +29,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
     private PlcConf current_conf;
     private User current_user;
     private ReadLiquidTask readS7;
+    private WriteLiquidTask writeS7;
     private NetworkInfo networkInfo;
     private ConnectivityManager connectivityManager;
     private ActivityPlcLiquidBinding binding;
@@ -45,8 +47,9 @@ public class PlcLiquidActivity extends AppCompatActivity {
         valves.put(2, binding.valve2);
         valves.put(3, binding.valve3);
         valves.put(4, binding.valve4);
+
         readS7 = new ReadLiquidTask(valves, binding.liquidLvl, binding.reference, binding.mode, binding.pilot,
-                binding.auto, binding.manual, binding.isRemote, binding.rLiquidProgress, binding.connectionTestLiquid, 5);
+                binding.auto, binding.manual, binding.isRemote, binding.connectionTestLiquid, 5);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();

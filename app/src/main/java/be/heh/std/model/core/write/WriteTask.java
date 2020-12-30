@@ -23,10 +23,7 @@ public abstract class WriteTask {
     protected HashMap<Integer, byte[]> dbb;
     protected HashMap<Integer, byte[]> dbw;
 
-    private TextView net_status;
-
-    public WriteTask(TextView net_status, int datablock) {
-        this.net_status = net_status;
+    public WriteTask(int datablock) {
         this.datablock = datablock;
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
@@ -70,14 +67,15 @@ public abstract class WriteTask {
         else throw new IndexOutOfBoundsException();
     }
 
-    public void setWordAtDbb(int value, int index_dbb) throws IndexOutOfBoundsException {
-        if(dbb.containsKey(index_dbb))
-            S7.SetWordAt(dbb.get(index_dbb), 0, value);
+    public void setWordAtDbw(int value,int pos,  int index_dbw) throws IndexOutOfBoundsException {
+        if(dbw.containsKey(index_dbw))
+            S7.SetWordAt(dbw.get(index_dbw), pos, value);
         else throw new IndexOutOfBoundsException();
     }
-    public void setBitAtDbb(int bit, boolean value, int index_dbb) throws IndexOutOfBoundsException {
+
+    public void setBitAtDbb(int bit, boolean value,int pos, int index_dbb) throws IndexOutOfBoundsException {
         if(dbb.containsKey(index_dbb))
-            S7.SetBitAt(dbb.get(index_dbb), 0, bit, value);
+            S7.SetBitAt(dbb.get(index_dbb), pos, bit, value);
         else throw new IndexOutOfBoundsException();
     }
 
@@ -98,9 +96,23 @@ public abstract class WriteTask {
 
         protected Integer connect() {
             comS7.SetConnectionType(S7.S7_BASIC);
-            Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
-            net_status.setText(res.toString().equals("0") ? R.string.up : R.string.down);
+            Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),
+                    Integer.parseInt(param[2]));
             return res;
+        }
+
+        protected int writeInts() {
+            Integer writePlc = 0;
+            for (Integer key : dbw.keySet())
+                writePlc = comS7.WriteArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
+            return writePlc;
+        }
+
+        protected int writeBits() {
+            Integer writePlc = 0;
+            for (Integer key : dbb.keySet())
+                writePlc = comS7.WriteArea(S7.S7AreaDB, getDatablock(), key, 1, dbb.get(key));
+            return writePlc;
         }
 
     }
