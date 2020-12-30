@@ -3,12 +3,14 @@ package be.heh.std.model.core.read;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.std.app.R;
@@ -32,6 +34,7 @@ public abstract class ReadTask {
 
     private int datablock;
     protected HashMap<Integer, byte[]> dbb;
+    protected HashMap<Integer, byte[]> dbw;
 
     //Text view giving network state of the plc.
     private TextView net_status;
@@ -41,7 +44,8 @@ public abstract class ReadTask {
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         readThread = new Thread(plcS7);
-        dbb = new HashMap<Integer, byte[]>();
+        dbb = new HashMap<>();
+        dbw = new HashMap<>();
         this.datablock = datablock;
     }
 
@@ -126,6 +130,30 @@ public abstract class ReadTask {
             progressMsg.what = MESSAGE_PROGRESS_UPDATE;
             progressMsg.arg1 = i;
             monHandler.sendMessage(progressMsg);
+        }
+
+        protected void byteReader() {
+            int retInfoBis = 0;
+            for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
+                Integer key = entry.getKey();
+                retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 8, dbb.get(key));
+                if (retInfoBis != 0) {
+                    Log.i("ERROR read dbb", String.valueOf(retInfoBis));
+                    break;
+                }
+            }
+        }
+
+        protected void intReader() {
+            int retInfoBis = 0;
+            for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
+                Integer key = entry.getKey();
+                retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
+                if (retInfoBis != 0) {
+                    Log.i("ERROR read dbw", String.valueOf(retInfoBis));
+                    break;
+                }
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ public abstract class WriteTask {
 
     private int datablock;
     protected HashMap<Integer, byte[]> dbb;
+    protected HashMap<Integer, byte[]> dbw;
 
     private TextView net_status;
 
@@ -30,7 +31,8 @@ public abstract class WriteTask {
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         writeThread = new Thread(plcS7);
-        dbb = new HashMap<Integer, byte[]>();
+        dbb = new HashMap<>();
+        dbw = new HashMap<>();
     }
 
     public abstract AutomateS7 getAutomateS7();
@@ -60,6 +62,25 @@ public abstract class WriteTask {
         return isRunning.get();
     }
 
+    public void setWriteBoolDbb(int bit, boolean value, int index_dbb) throws IndexOutOfBoundsException {
+        if(dbb.containsKey(index_dbb)) {
+            if (value) dbb.get(index_dbb)[0] = (byte) (bit | dbb.get(index_dbb)[0]);
+            else dbb.get(index_dbb)[0] = (byte) (~bit & dbb.get(index_dbb)[0]);
+        }
+        else throw new IndexOutOfBoundsException();
+    }
+
+    public void setWordAtDbb(int value, int index_dbb) throws IndexOutOfBoundsException {
+        if(dbb.containsKey(index_dbb))
+            S7.SetWordAt(dbb.get(index_dbb), 0, value);
+        else throw new IndexOutOfBoundsException();
+    }
+    public void setBitAtDbb(int bit, boolean value, int index_dbb) throws IndexOutOfBoundsException {
+        if(dbb.containsKey(index_dbb))
+            S7.SetBitAt(dbb.get(index_dbb), 0, bit, value);
+        else throw new IndexOutOfBoundsException();
+    }
+
     protected abstract class AutomateS7 implements Runnable{
 
         @Override
@@ -82,20 +103,7 @@ public abstract class WriteTask {
             return res;
         }
 
-        protected void setWriteBoolDbb(int b, int v, byte[]dbb) {
-            if (v == 1) dbb[0] = (byte) (b | dbb[0]);
-            else dbb[0] = (byte) (~b & dbb[0]);
-        }
-
-        protected void setBitAtDbb(int b, int v, byte[]dbb) {
-            byte[] powerOf2 = {(byte) 0x01, (byte) 0x02, (byte) 0x04, (byte) 0x08, (byte) 0x16,
-                    (byte) 0x32, (byte) 0x64, (byte) 0xA0};
-
-            b = b < 0 ? 0 : b;
-            b = b > 7 ? 7 : b;
-
-            if (v == 1) dbb[0] = (byte) (dbb[0] | powerOf2[b]);
-            else dbb[0] = (byte) (dbb[0] & ~powerOf2[b]);
-        }
     }
+
+
 }

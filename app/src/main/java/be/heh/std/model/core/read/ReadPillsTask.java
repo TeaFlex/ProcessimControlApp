@@ -41,9 +41,9 @@ public class ReadPillsTask extends ReadTask {
         //supply of pills(5, 10 or 15)
         dbb.put(4, new byte[16]);
         //pills per bottle
-        dbb.put(15, new byte[16]);
+        dbw.put(15, new byte[16]);
         //bottles
-        dbb.put(16, new byte[16]);
+        dbw.put(16, new byte[16]);
     }
 
     @Override
@@ -98,17 +98,23 @@ public class ReadPillsTask extends ReadTask {
                 while(isRunning.get()){
                     if (res.equals(0)){
                         int retInfo = comS7.ReadArea(S7.S7AreaDB,getDatablock(),9,2, datasPLC);
-                        comS7.ReadArea(S7.S7AreaDB, getDatablock(), 16, 2, dbb.get(16));
-                        comS7.ReadArea(S7.S7AreaDB, getDatablock(), 15, 2, dbb.get(15));
 
                         int retInfoBis = 0;
+                        //byte reader
                         for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
                             Integer key = entry.getKey();
-                            int[] bits = {0, 1, 4};//dbbs containing bit values
-                            int amount = (Arrays.asList(bits).contains(key.intValue()))? 8 : 2;
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, amount, dbb.get(key));
+                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 8, dbb.get(key));
                             if (retInfoBis != 0) {
-                                Log.i("ERROR", String.valueOf(retInfoBis));
+                                Log.i("ERROR read dbb", String.valueOf(retInfoBis));
+                                break;
+                            }
+                        }
+                        //int reader
+                        for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
+                            Integer key = entry.getKey();
+                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
+                            if (retInfoBis != 0) {
+                                Log.i("ERROR read dbw", String.valueOf(retInfoBis));
                                 break;
                             }
                         }
@@ -127,12 +133,14 @@ public class ReadPillsTask extends ReadTask {
                             sendProgressMessage(init_data);
                             //Beginning of working zone
 
-                            nb_pills_data = S7.GetWordAt(dbb.get(15), 0);
-                            nb_bottles_data = S7.GetWordAt(dbb.get(16), 0);
+                            nb_pills_data = S7.GetWordAt(dbw.get(15), 0);
+                            nb_bottles_data = S7.GetWordAt(dbw.get(16), 0);
 
                             supply_asked_data = S7.GetBitAt(dbb.get(4), 0, 3)? 0 : 5;
-                            supply_asked_data = S7.GetBitAt(dbb.get(4), 0, 4)? 0 : 10;
-                            supply_asked_data = S7.GetBitAt(dbb.get(4), 0, 5)? 0 : 15;
+                            if(supply_asked_data == 0)
+                                supply_asked_data = S7.GetBitAt(dbb.get(4), 0, 4)? 0 : 10;
+                            if(supply_asked_data == 0)
+                                supply_asked_data = S7.GetBitAt(dbb.get(4), 0, 5)? 0 : 15;
                             in_service = S7.GetBitAt(dbb.get(0), 0, 0)? 0 : 1;
                             remote_data = S7.GetBitAt(dbb.get(1), 0, 7)? 0 : 1;
 

@@ -25,9 +25,6 @@ public class ReadLiquidTask extends ReadTask {
     private TextView is_remote_controlled;
     private ProgressBar progress;
 
-
-    private byte[] dbb0 = new byte[16];
-
     public ReadLiquidTask(HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
                           TextView mode, TextView pilot, TextView auto_deposit,
                           TextView manual_deposit, TextView is_remote_controlled,
@@ -47,13 +44,13 @@ public class ReadLiquidTask extends ReadTask {
         //valves, mode and remote
         dbb.put(0, new byte[16]);
         //liquid
-        dbb.put(16, new byte[16]);
+        dbw.put(16, new byte[16]);
         //auto
-        dbb.put(18, new byte[16]);
+        dbw.put(18, new byte[16]);
         //manual
-        dbb.put(20, new byte[16]);
+        dbw.put(20, new byte[16]);
         //pilot
-        dbb.put(22, new byte[16]);
+        dbw.put(22, new byte[16]);
     }
 
     @Override
@@ -119,13 +116,21 @@ public class ReadLiquidTask extends ReadTask {
                                 9,2,datasPLC);
 
                         int retInfoBis = 0;
+                        //byte reader
                         for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
                             Integer key = entry.getKey();
-                            int[] bits = {0, 1};
-                            int amount = (Arrays.asList(bits).contains(key.intValue()))? 8 : 2;
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, amount, dbb.get(key));
+                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 8, dbb.get(key));
                             if (retInfoBis != 0) {
-                                Log.i("ERROR", String.valueOf(retInfoBis));
+                                Log.i("ERROR read dbb", String.valueOf(retInfoBis));
+                                break;
+                            }
+                        }
+                        //int reader
+                        for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
+                            Integer key = entry.getKey();
+                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
+                            if (retInfoBis != 0) {
+                                Log.i("ERROR read dbw", String.valueOf(retInfoBis));
                                 break;
                             }
                         }

@@ -2,6 +2,8 @@ package be.heh.std.model.core.write;
 
 import android.widget.TextView;
 
+import be.heh.std.imported.simaticS7.S7;
+
 public class WritePillsTask extends WriteTask {
 
     public WritePillsTask(TextView net_status, int datablock) {
@@ -17,7 +19,7 @@ public class WritePillsTask extends WriteTask {
 
         @Override
         protected void toRun() {
-            //S7.Set
+            //Integer writePlc = comS7.WriteArea(S7.S7AreaDB, getDatablock(), 0, 1)
         }
     }
 }
