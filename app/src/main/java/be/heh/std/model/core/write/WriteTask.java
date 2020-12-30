@@ -1,11 +1,8 @@
 package be.heh.std.model.core.write;
 
-import android.widget.TextView;
-
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7Client;
 

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import be.heh.std.app.R;
@@ -20,6 +21,7 @@ public class ReadPillsTask extends ReadTask {
     private TextView is_remote_controlled;
     private TextView nb_pills;
     private TextView nb_bottles;
+
 
     public ReadPillsTask(TextView reference, TextView in_service, TextView supply_asked,
                          TextView is_remote_controlled, TextView nb_pills, TextView nb_bottles,

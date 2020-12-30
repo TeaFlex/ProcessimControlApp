@@ -1,7 +1,5 @@
 package be.heh.std.model.core.write;
 
-import be.heh.std.imported.simaticS7.S7;
-
 public class WriteLiquidTask extends WriteTask{
 
     public WriteLiquidTask(int datablock) {

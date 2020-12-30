@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="valve_n">Valve %d: %d</string>
+    <string name="valve_n">Valve %d</string>
+    <string name="manual_auto">Manual/Auto</string>
+
 </resources>

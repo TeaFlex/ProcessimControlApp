@@ -20,6 +20,7 @@ import be.heh.std.model.core.read.ReadLiquidTask;
 import be.heh.std.model.core.write.WriteLiquidTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
+import be.heh.std.model.database.Role;
 import be.heh.std.model.database.User;
 
 public class PlcLiquidActivity extends AppCompatActivity {
@@ -43,13 +44,17 @@ public class PlcLiquidActivity extends AppCompatActivity {
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
         HashMap<Integer, TextView> valves = new HashMap<>();
-        valves.put(1, binding.valve1);
-        valves.put(2, binding.valve2);
-        valves.put(3, binding.valve3);
-        valves.put(4, binding.valve4);
+        valves.put(1, binding.rValve1Liquid);
+        valves.put(2, binding.rValve2Liquid);
+        valves.put(3, binding.rValve3Liquid);
+        valves.put(4, binding.rValve4Liquid);
 
-        readS7 = new ReadLiquidTask(valves, binding.liquidLvl, binding.reference, binding.mode, binding.pilot,
-                binding.auto, binding.manual, binding.isRemote, binding.connectionTestLiquid, 5);
+        readS7 = new ReadLiquidTask(valves, binding.rLvlLiquid, binding.reference,
+                binding.rModeLiquid, binding.rPilotLiquid, binding.rAutoLiquid,
+                binding.rManualLiquid, binding.rIsRemoteLiquid, binding.connectionTestLiquid, 5);
+
+        if(current_user.role != Role.BASIC)
+            writeS7 = new WriteLiquidTask(5);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -57,7 +62,8 @@ public class PlcLiquidActivity extends AppCompatActivity {
         binding.setUser(current_user);
 
         if(networkInfo == null || !networkInfo.isConnectedOrConnecting()){
-            Toast.makeText(getApplicationContext(), R.string.network_err, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.network_err,
+                    Toast.LENGTH_LONG).show();
             finish();
         }
 
@@ -77,8 +83,12 @@ public class PlcLiquidActivity extends AppCompatActivity {
     }
 
     public void onPlcLiquidClickManager(View v) {
-        switch (v.getId()) {
+        try {
+            switch (v.getId()) {
 
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
         }
     }
 }

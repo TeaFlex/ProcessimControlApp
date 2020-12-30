@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import java.util.HashMap;
+
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcPillsBinding;
 import be.heh.std.model.core.read.ReadPillsTask;
@@ -40,8 +42,9 @@ public class PlcPillsActivity extends AppCompatActivity {
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
 
+        HashMap<String, String> values = new HashMap<>();
         readS7 = new ReadPillsTask(binding.referencePills, binding.inServicePills,
-                binding.rSupplyPills, binding.isRemotePills, binding.connectionTestPills,
+                binding.rSupplyPills, binding.isRemotePills, binding.rNbBottles,
                 binding.rNbPills, binding.connectionTestPills, 5);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

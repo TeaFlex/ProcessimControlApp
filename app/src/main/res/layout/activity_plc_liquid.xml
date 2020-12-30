@@ -21,6 +21,7 @@
             android:background="@drawable/gradient_1">
 
             <LinearLayout
+                android:padding="@dimen/padding"
                 android:id="@+id/info_block_liquid"
                 android:layout_width="@dimen/block_width"
                 android:layout_height="wrap_content"
@@ -64,7 +65,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info_block_liquid">
+                app:layout_constraintTop_toBottomOf="@id/info_block_liquid"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -72,75 +74,70 @@
                     android:text="@string/read"
                     android:textSize="@dimen/title_size" />
 
+
                 <TextView
                     android:id="@+id/connection_test_liquid"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/reference"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/valve1"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_valve1_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/valve2"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_valve2_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/valve3"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_valve3_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/valve4"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_valve4_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/liquid_lvl"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_lvl_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/pilot"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_pilot_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/auto"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_auto_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/manual"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_manual_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/is_remote"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_is_remote_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/mode"
-                    android:layout_width="match_parent"
+                    android:id="@+id/r_mode_liquid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
-                <ProgressBar
-                    android:id="@+id/r_liquid_progress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    />
             </LinearLayout>
 
             <LinearLayout
+                android:padding="@dimen/padding"
                 android:id="@+id/write_block_liquid"
                 android:layout_width="@dimen/block_width"
                 android:layout_height="wrap_content"
@@ -158,6 +155,43 @@
                     android:layout_height="wrap_content"
                     android:text="@string/write"
                     android:textSize="@dimen/title_size" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow>
+                        <Switch
+                            android:id="@+id/w_manual_auto_liquid"
+                            android:hint="@string/manual_auto"/>
+                    </TableRow>
+                    <TableRow>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <Switch
+                                android:id="@+id/w_valve1_liquid"
+                                android:hint="@{@string/valve_n(1)}"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
+                            <Switch
+                                android:id="@+id/w_valve2_liquid"
+                                android:hint="@{@string/valve_n(2)}"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
+                            <Switch
+                                android:id="@+id/w_valve3_liquid"
+                                android:hint="@{@string/valve_n(3)}"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
+                            <Switch
+                                android:id="@+id/w_valve4_liquid"
+                                android:hint="@{@string/valve_n(4)}"
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content" />
+                        </LinearLayout>
+                    </TableRow>
+                </TableLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -40,6 +40,7 @@ public abstract class ReadTask {
 
     //Text view giving network state of the plc.
     private TextView net_status;
+    private HashMap<String, Integer> values;
 
     public ReadTask(TextView net_status, int datablock) {
         this.net_status = net_status;
@@ -49,6 +50,7 @@ public abstract class ReadTask {
         dbb = new HashMap<>();
         dbw = new HashMap<>();
         this.datablock = datablock;
+        this.values = values;
     }
 
     public int getDatablock() {
@@ -137,6 +139,7 @@ public abstract class ReadTask {
             Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
             if(!res.toString().equals("0")) downloadOnPostExecute();
             net_status.setText(res.toString().equals("0") ? R.string.up : R.string.down);
+            //values.put("net_status", res.toString().equals("0") ? 1 : 0);
             return res;
         }
 
