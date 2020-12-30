@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcPillsBinding;
-import be.heh.std.model.core.ReadPillsTask;
+import be.heh.std.model.core.read.ReadPillsTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 import be.heh.std.model.database.User;

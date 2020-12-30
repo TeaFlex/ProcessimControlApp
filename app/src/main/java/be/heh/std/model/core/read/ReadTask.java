@@ -1,4 +1,4 @@
-package be.heh.std.model.core;
+package be.heh.std.model.core.read;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7Client;
 
@@ -64,7 +65,6 @@ public abstract class ReadTask {
             param[1] = rack;
             param[2] = slot;
 
-
             readThread.start();
             isRunning.set(true);
         }
@@ -102,7 +102,7 @@ public abstract class ReadTask {
         protected Integer connect() {
             comS7.SetConnectionType(S7.S7_BASIC);
             Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
-            net_status.setText(res.toString().equals("0") ? "UP" : "DOWN");
+            net_status.setText(res.toString().equals("0") ? R.string.up : R.string.down);
             return res;
         }
 

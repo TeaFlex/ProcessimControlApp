@@ -1,15 +1,13 @@
-package be.heh.std.model.core;
+package be.heh.std.model.core.read;
 
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;

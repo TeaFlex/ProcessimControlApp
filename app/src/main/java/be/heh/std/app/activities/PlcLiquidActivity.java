@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 import be.heh.std.app.R;
 import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
-import be.heh.std.model.core.ReadLiquidTask;
+import be.heh.std.model.core.read.ReadLiquidTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
 import be.heh.std.model.database.User;
