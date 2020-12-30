@@ -132,7 +132,7 @@ public abstract class ReadTask {
             monHandler.sendMessage(progressMsg);
         }
 
-        protected void byteReader() {
+        protected int byteReader() {
             int retInfoBis = 0;
             for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
                 Integer key = entry.getKey();
@@ -142,9 +142,10 @@ public abstract class ReadTask {
                     break;
                 }
             }
+            return retInfoBis;
         }
 
-        protected void intReader() {
+        protected int intReader() {
             int retInfoBis = 0;
             for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
                 Integer key = entry.getKey();
@@ -154,6 +155,7 @@ public abstract class ReadTask {
                     break;
                 }
             }
+            return retInfoBis;
         }
     }
 }

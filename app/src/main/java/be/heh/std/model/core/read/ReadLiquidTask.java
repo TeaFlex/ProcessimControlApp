@@ -115,27 +115,10 @@ public class ReadLiquidTask extends ReadTask {
                         int retInfo = comS7.ReadArea(S7.S7AreaDB, getDatablock(),
                                 9,2,datasPLC);
 
-                        int retInfoBis = 0;
-                        //byte reader
-                        for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
-                            Integer key = entry.getKey();
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 8, dbb.get(key));
-                            if (retInfoBis != 0) {
-                                Log.i("ERROR read dbb", String.valueOf(retInfoBis));
-                                break;
-                            }
-                        }
-                        //int reader
-                        for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
-                            Integer key = entry.getKey();
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
-                            if (retInfoBis != 0) {
-                                Log.i("ERROR read dbw", String.valueOf(retInfoBis));
-                                break;
-                            }
-                        }
+                        retInfo = Math.max(byteReader(), retInfo);
+                        retInfo = Math.max(intReader(), retInfo);
 
-                        retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), 16, 2, dbb.get(16));
+                        Log.i("retInfo", String.valueOf(retInfo));
 
                         int init_data = 0;
 
@@ -148,16 +131,16 @@ public class ReadLiquidTask extends ReadTask {
                         int remote_data = 0;
 
 
-                        if (retInfo == 0 && retInfoBis == 0) {
+                        if (retInfo == 0) {
                             init_data = S7.GetWordAt(datasPLC, 0);
 
                             //Beginning of working zone
 
                             //Decimal values
-                            liquid_level_data = S7.GetWordAt(dbb.get(16),0);
-                            automatic_deposit_data = S7.GetWordAt(dbb.get(18), 0);
-                            manual_deposit_data = S7.GetWordAt(dbb.get(20),0);
-                            pilot_data = S7.GetWordAt(dbb.get(22),0);
+                            liquid_level_data = S7.GetWordAt(dbw.get(16),0);
+                            automatic_deposit_data = S7.GetWordAt(dbw.get(18), 0);
+                            manual_deposit_data = S7.GetWordAt(dbw.get(20),0);
+                            pilot_data = S7.GetWordAt(dbw.get(22),0);
 
                             //Binary values
                             for (int i = 0; i < valves_data.length; i++)

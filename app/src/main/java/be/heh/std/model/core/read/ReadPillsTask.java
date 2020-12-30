@@ -99,27 +99,10 @@ public class ReadPillsTask extends ReadTask {
                     if (res.equals(0)){
                         int retInfo = comS7.ReadArea(S7.S7AreaDB,getDatablock(),9,2, datasPLC);
 
-                        int retInfoBis = 0;
-                        //byte reader
-                        for(Map.Entry<Integer, byte[]> entry : dbb.entrySet()) {
-                            Integer key = entry.getKey();
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 8, dbb.get(key));
-                            if (retInfoBis != 0) {
-                                Log.i("ERROR read dbb", String.valueOf(retInfoBis));
-                                break;
-                            }
-                        }
-                        //int reader
-                        for(Map.Entry<Integer, byte[]> entry : dbw.entrySet()) {
-                            Integer key = entry.getKey();
-                            retInfoBis = comS7.ReadArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
-                            if (retInfoBis != 0) {
-                                Log.i("ERROR read dbw", String.valueOf(retInfoBis));
-                                break;
-                            }
-                        }
+                        retInfo = Math.max(byteReader(), retInfo);
+                        retInfo = Math.max(intReader(), retInfo);
 
-
+                        Log.i("retInfo", String.valueOf(retInfo));
                         int init_data = 0;
 
                         int nb_pills_data = 0;
