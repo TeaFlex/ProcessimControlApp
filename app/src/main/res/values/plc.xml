@@ -4,4 +4,5 @@
     <string name="cpu_ref">CPU : %d</string>
     <string name="remote_ctrl">Remote: %s</string>
     <string name="in_service">In service: %s</string>
+    <string name="start_stop">Stop/Start</string>
 </resources>

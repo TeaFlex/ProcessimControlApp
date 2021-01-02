@@ -1,17 +1,20 @@
 package be.heh.std.model.core.write;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.std.imported.simaticS7.S7;
 import be.heh.std.imported.simaticS7.S7Client;
+import be.heh.std.model.core.read.ReadTask;
 
 public abstract class WriteTask {
 
     protected AtomicBoolean isRunning = new AtomicBoolean(false);
 
     protected Thread writeThread;
-    protected AutomateS7 plcS7;
+    protected WriteAutomateS7 plcS7;
 
     protected S7Client comS7;
     private String[] param = new String[10];
@@ -29,7 +32,7 @@ public abstract class WriteTask {
         dbw = new HashMap<>();
     }
 
-    public abstract AutomateS7 getAutomateS7();
+    public abstract WriteAutomateS7 getAutomateS7();
 
     public void start(String ip, String rack, String slot) {
         if(!writeThread.isAlive()) {
@@ -50,6 +53,14 @@ public abstract class WriteTask {
 
     public int getDatablock() {
         return datablock;
+    }
+
+    public S7Client getComS7() {
+        return comS7;
+    }
+
+    public void setComS7(S7Client comS7) {
+        this.comS7 = comS7;
     }
 
     public boolean isWriting() {
@@ -76,14 +87,22 @@ public abstract class WriteTask {
         else throw new IndexOutOfBoundsException();
     }
 
-    protected abstract class AutomateS7 implements Runnable{
+    protected abstract class WriteAutomateS7 implements Runnable{
 
         @Override
         public void run() {
             try {
                 Integer res = connect();
-                if(isRunning.get() && res.equals(0))
+                while(res != 0){
+                    Log.e("CONNECTION FAILED", String.format("Connection to %s failed.", param[0]));
+                    res = connect();
+                    Thread.sleep(1000);
+                }
+                while(isRunning.get() && res.equals(0)){
                     toRun();
+                    Log.i(String.format("WRITING ON %s", param[0]), "Operational");
+                }
+
             } catch (Exception e) {
                 e.getStackTrace();
             }

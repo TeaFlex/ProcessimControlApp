@@ -1,5 +1,7 @@
 package be.heh.std.model.core.read;
 
+import android.app.Activity;
+import android.util.Log;
 import android.widget.TextView;
 
 import be.heh.std.app.R;
@@ -15,11 +17,11 @@ public class ReadPillsTask extends ReadTask {
     private TextView nb_bottles;
 
 
-    public ReadPillsTask(TextView reference, TextView in_service, TextView supply_asked,
+    public ReadPillsTask(Activity current_activity, TextView reference, TextView in_service, TextView supply_asked,
                          TextView is_remote_controlled, TextView nb_pills, TextView nb_bottles,
                          TextView net_status, int datablock) {
 
-        super(net_status, datablock);
+        super(net_status, current_activity, datablock);
         this.reference = reference;
         this.in_service = in_service;
         this.nb_bottles = nb_bottles;
@@ -40,33 +42,38 @@ public class ReadPillsTask extends ReadTask {
     }
 
     @Override
-    protected AutomateS7 getAutomateS7() {
+    protected ReadAutomateS7 getAutomateS7() {
         return new PillsAutomateS7();
     }
 
     @Override
     protected void downloadOnPreExecute(int... values) {
-        if(values.length == 6) {
-            nb_pills.setText(context.getString(R.string.nb_pills, values[0]));
-            nb_bottles.setText(context.getString(R.string.nb_bottles, values[1]));
-            supply_asked.setText(context.getString(R.string.supply_asked, values[2]));
-            is_remote_controlled.setText(context.getString(R.string.remote_ctrl, onOrOff(values[3])));
-            in_service.setText(context.getString(R.string.in_service, onOrOff(values[4])));
-            reference.setText(context.getString(R.string.cpu_ref, values[5]));
-        }
+        current_activity.runOnUiThread(() -> {
+            if(values.length == 6) {
+                nb_pills.setText(context.getString(R.string.nb_pills, values[0]));
+                nb_bottles.setText(context.getString(R.string.nb_bottles, values[1]));
+                supply_asked.setText(context.getString(R.string.supply_asked, values[2]));
+                is_remote_controlled.setText(context.getString(R.string.remote_ctrl, onOrOff(values[3])));
+                in_service.setText(context.getString(R.string.in_service, onOrOff(values[4])));
+                reference.setText(context.getString(R.string.cpu_ref, values[5]));
+            }
+        });
     }
 
     @Override
     protected void downloadOnPostExecute() {
-        nb_pills.setText("-");
-        nb_bottles.setText("-");
-        supply_asked.setText("-");
-        is_remote_controlled.setText("-");
-        in_service.setText("-");
-        reference.setText("-");
+        current_activity.runOnUiThread(() -> {
+            String none = "-";
+            nb_pills.setText(none);
+            nb_bottles.setText(none);
+            supply_asked.setText(none);
+            is_remote_controlled.setText(none);
+            in_service.setText(none);
+            reference.setText(none);
+        });
     }
 
-    private class PillsAutomateS7 extends AutomateS7 {
+    private class PillsAutomateS7 extends ReadAutomateS7 {
 
         @Override
         protected void toRun(int numCPU) {
@@ -74,6 +81,8 @@ public class ReadPillsTask extends ReadTask {
 
             retInfo = Math.max(byteReader(), retInfo);
             retInfo = Math.max(intReader(), retInfo);
+
+            Log.i(String.format("READING PILLS ON [%s]", param[0]), String.format("code: %d", retInfo));
             
             int init_data = 0;
 

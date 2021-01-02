@@ -1,6 +1,7 @@
 package be.heh.std.model.core.read;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public abstract class ReadTask {
 
     protected AtomicBoolean isRunning = new AtomicBoolean(false);
 
-    protected AutomateS7 plcS7;
+    protected ReadAutomateS7 plcS7;
     protected Thread readThread;
 
     protected S7Client comS7;
@@ -41,21 +41,31 @@ public abstract class ReadTask {
 
     //Text view giving network state of the plc.
     private TextView net_status;
+    protected Activity current_activity;
     protected Context context;
 
-    public ReadTask(TextView net_status, int datablock) {
+    public ReadTask(TextView net_status, Activity current_activity, int datablock) {
         this.net_status = net_status;
-        this.context = net_status.getContext();
+        this.context = current_activity.getApplicationContext();
         comS7 = new S7Client();
         plcS7 = getAutomateS7();
         readThread = new Thread(plcS7);
         dbb = new HashMap<>();
         dbw = new HashMap<>();
         this.datablock = datablock;
+        this.current_activity = current_activity;
     }
 
     public int getDatablock() {
         return datablock;
+    }
+
+    public S7Client getComS7() {
+        return comS7;
+    }
+
+    public void setComS7(S7Client comS7) {
+        this.comS7 = comS7;
     }
 
     public boolean isReading() {
@@ -83,7 +93,7 @@ public abstract class ReadTask {
         return context.getString(value == 0 ? R.string.off: R.string.on);
     }
 
-    protected abstract AutomateS7 getAutomateS7();
+    protected abstract ReadAutomateS7 getAutomateS7();
 
     protected abstract void downloadOnPreExecute(int... values);
 
@@ -106,7 +116,7 @@ public abstract class ReadTask {
         }
     };
 
-    protected abstract class AutomateS7 implements Runnable {
+    protected abstract class ReadAutomateS7 implements Runnable {
 
         protected abstract void toRun(int numCPU);
 
@@ -114,6 +124,14 @@ public abstract class ReadTask {
         public void run() {
             try {
                 Integer res = connect();
+
+                while(res != 0){
+                    Log.e("CONNECTION FAILED", String.format("Connection to %s failed.", param[0]));
+                    res = connect();
+                    Thread.sleep(1000);
+                }
+
+                Log.i(String.format("CONNECT STATE TO %s", param[0]), String.format("code %d", res));
                 S7OrderCode orderCode = new S7OrderCode();
                 Integer result = comS7.GetOrderCode(orderCode);
                 int numCPU = -1;
@@ -143,8 +161,8 @@ public abstract class ReadTask {
             comS7.SetConnectionType(S7.S7_BASIC);
             Integer res = comS7.ConnectTo(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2]));
             if(!res.toString().equals("0")) downloadOnPostExecute();
-            net_status.setText(context.getString(R.string.net_status, context.getString(
-                    res.toString().equals("0") ? R.string.up : R.string.down)));
+            current_activity.runOnUiThread(() -> net_status.setText(context.getString(R.string.net_status, context.getString(
+                    res.toString().equals("0") ? R.string.up : R.string.down))));
             return res;
         }
 

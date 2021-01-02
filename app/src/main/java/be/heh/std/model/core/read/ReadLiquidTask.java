@@ -1,7 +1,6 @@
 package be.heh.std.model.core.read;
 
-import android.content.Context;
-import android.content.res.Resources;
+import android.app.Activity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -22,11 +21,11 @@ public class ReadLiquidTask extends ReadTask {
     private final TextView manual_deposit;
     private final TextView is_remote_controlled;
 
-    public ReadLiquidTask(HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
+    public ReadLiquidTask(Activity current_activity, HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
                           TextView mode, TextView pilot, TextView auto_deposit,
                           TextView manual_deposit, TextView is_remote_controlled,
                           TextView net_status, int datablock) {
-        super(net_status, datablock);
+        super(net_status, current_activity, datablock);
         this.valves = valves;
         this.liquid_lvl = liquid_lvl;
         this.reference = reference;
@@ -49,45 +48,49 @@ public class ReadLiquidTask extends ReadTask {
     }
 
     @Override
-    protected AutomateS7 getAutomateS7() {
+    protected ReadAutomateS7 getAutomateS7() {
         return new LiquidAutomateS7();
     }
 
     @Override
     protected void downloadOnPreExecute(int... values) {
-        if(values.length == 11) {
-            for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
-                Integer key = entry.getKey();
-                String current_valve = context.getString(R.string.valve_n, key);
-                String v_state = context.getString((values[key - 1] == 0)? R.string.closed : R.string.open);
-                valves.get(key).setText(String.format("%s : %s", current_valve, v_state));
+        current_activity.runOnUiThread(() -> {
+            if(values.length == 11) {
+                for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
+                    Integer key = entry.getKey();
+                    String current_valve = context.getString(R.string.valve_n, key);
+                    String v_state = context.getString((values[key - 1] == 0)? R.string.closed : R.string.open);
+                    valves.get(key).setText(String.format("%s : %s", current_valve, v_state));
+                }
+                manual_deposit.setText(context.getString(R.string.manual_deposit, values[4]));
+                auto_deposit.setText(context.getString(R.string.auto_deposit, values[5]));
+                liquid_lvl.setText(context.getString(R.string.liquid_lvl, values[6]));
+                pilot.setText(context.getString(R.string.pilot, values[7]));
+                mode.setText(context.getString(R.string.mode, context.getString((values[8] == 0)? R.string.auto: R.string.manual)));
+                is_remote_controlled.setText(context.getString(R.string.remote_ctrl, context.getString((values[9] == 0)? R.string.on: R.string.off)));
+                reference.setText(context.getString(R.string.cpu_ref, values[10]));
             }
-            manual_deposit.setText(context.getString(R.string.manual_deposit, values[4]));
-            auto_deposit.setText(context.getString(R.string.auto_deposit, values[5]));
-            liquid_lvl.setText(context.getString(R.string.liquid_lvl, values[6]));
-            pilot.setText(context.getString(R.string.pilot, values[7]));
-            mode.setText(context.getString(R.string.mode, context.getString((values[8] == 0)? R.string.auto: R.string.manual)));
-            is_remote_controlled.setText(context.getString(R.string.remote_ctrl, context.getString((values[9] == 0)? R.string.on: R.string.off)));
-            reference.setText(context.getString(R.string.cpu_ref, values[10]));
-        }
+        });
     }
 
     @Override
     protected void downloadOnPostExecute() {
-        Resources r = Resources.getSystem();
-        for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
-            Integer key = entry.getKey();
-            valves.get(key).setText("-");
-        }
-        manual_deposit.setText("-");
-        auto_deposit.setText("-");
-        liquid_lvl.setText("-");
-        pilot.setText("-");
-        mode.setText("-");
-        is_remote_controlled.setText("-");
+        current_activity.runOnUiThread(() -> {
+            String none = "-";
+            for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
+                Integer key = entry.getKey();
+                valves.get(key).setText(none);
+            }
+            manual_deposit.setText(none);
+            auto_deposit.setText(none);
+            liquid_lvl.setText(none);
+            pilot.setText(none);
+            mode.setText(none);
+            is_remote_controlled.setText(none);
+        });
     }
 
-    private class LiquidAutomateS7 extends AutomateS7 {
+    private class LiquidAutomateS7 extends ReadAutomateS7 {
 
         @Override
         protected void toRun(int numCPU) {
@@ -97,7 +100,7 @@ public class ReadLiquidTask extends ReadTask {
             retInfo = Math.max(byteReader(), retInfo);
             retInfo = Math.max(intReader(), retInfo);
 
-            Log.i("retInfo", String.valueOf(retInfo));
+            Log.i(String.format("READING LIQUID ON [%s]", param[0]), String.format("code: %d", retInfo));
 
             int init_data = 0;
 

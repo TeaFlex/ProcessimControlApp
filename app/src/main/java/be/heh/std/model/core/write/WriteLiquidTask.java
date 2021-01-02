@@ -14,11 +14,11 @@ public class WriteLiquidTask extends WriteTask{
     }
 
     @Override
-    public AutomateS7 getAutomateS7() {
+    public WriteAutomateS7 getAutomateS7() {
         return new LiquidAutomateS7();
     }
 
-    private class LiquidAutomateS7 extends AutomateS7 {
+    private class LiquidAutomateS7 extends WriteAutomateS7 {
 
         @Override
         protected void toRun() {

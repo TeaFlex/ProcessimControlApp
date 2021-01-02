@@ -3,5 +3,7 @@
     <string name="nb_pills">Number of pills: %d</string>
     <string name="nb_bottles">Number of bottles: %d</string>
     <string name="supply_asked">Supply asked: %d</string>
-
+    <string name="n_pills">%d pills</string>
+    <string name="reset_bottles">Reset bottles</string>
+    <string name="gen_bottles">Bottles generation</string>
 </resources>

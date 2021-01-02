@@ -7,11 +7,11 @@ public class WritePillsTask extends WriteTask {
     }
 
     @Override
-    public AutomateS7 getAutomateS7() {
+    public WriteAutomateS7 getAutomateS7() {
         return new PillsAutomateS7();
     }
 
-    public class PillsAutomateS7 extends AutomateS7 {
+    public class PillsAutomateS7 extends WriteAutomateS7 {
 
         @Override
         protected void toRun() {

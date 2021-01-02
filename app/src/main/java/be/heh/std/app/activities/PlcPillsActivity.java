@@ -19,6 +19,7 @@ import be.heh.std.model.core.read.ReadPillsTask;
 import be.heh.std.model.core.write.WritePillsTask;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.PlcConf;
+import be.heh.std.model.database.Role;
 import be.heh.std.model.database.User;
 
 public class PlcPillsActivity extends AppCompatActivity {
@@ -43,9 +44,7 @@ public class PlcPillsActivity extends AppCompatActivity {
         current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
 
         HashMap<String, String> values = new HashMap<>();
-        readS7 = new ReadPillsTask(binding.referencePills, binding.inServicePills,
-                binding.rSupplyPills, binding.isRemotePills, binding.rNbBottles,
-                binding.rNbPills, binding.connectionTestPills, 5);
+
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -57,11 +56,14 @@ public class PlcPillsActivity extends AppCompatActivity {
             finish();
         }
 
-        try {
-            readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), R.string.plc_down_err, Toast.LENGTH_LONG).show();
-            finish();
+        readS7 = new ReadPillsTask(this, binding.referencePills, binding.inServicePills,
+                binding.rSupplyPills, binding.isRemotePills, binding.rNbBottles,
+                binding.rNbPills, binding.connectionTestPills, 5);
+        readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
+
+        if(current_user.role != Role.BASIC) {
+            writeS7 = new WritePillsTask(5);
+            writeS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
         }
     }
 
@@ -70,6 +72,8 @@ public class PlcPillsActivity extends AppCompatActivity {
         super.onDestroy();
         if(readS7.isReading())
             readS7.stop();
+        if(writeS7.isWriting() && current_user.role != Role.BASIC)
+            writeS7.stop();
     }
 
     public void onPlcPillsClickManager(View v) {

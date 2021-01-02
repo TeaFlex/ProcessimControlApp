@@ -9,4 +9,6 @@
     <string name="manual">Manual</string>
     <string name="manual_auto">Manual/Auto</string>
     <string name="pilot">Pilot : %d</string>
+    <string name="manual_deposit_hint">Manual deposit</string>
+    <string name="pilot_hint">Pilot valve</string>
 </resources>
