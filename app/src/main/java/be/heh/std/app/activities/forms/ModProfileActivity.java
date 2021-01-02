@@ -68,7 +68,7 @@ public class ModProfileActivity extends FormActivity {
         db.userdao().updateUserBasicInfos(id,
                 firstname.getText().toString(),
                 lastname.getText().toString(),
-                email.getText().toString());
+                email.getText().toString().toLowerCase());
 
 
         toastMessage(getString(R.string.mod_profile_done));
