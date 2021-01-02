@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi;
 import java.util.Arrays;
 
 import be.heh.std.app.R;
-import be.heh.std.app.activities.forms.FormActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 
@@ -45,7 +44,7 @@ public class ChgPasswordActivity extends FormActivity {
         super.checkForm();
 
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        User u = db.userdao().getUserByEmail(intent.getStringExtra("user_email"));
+        User u = db.userDAO().getUserByEmail(intent.getStringExtra("user_email"));
 
         if(!isPotentialHash(oldPassword.getText().toString(), u.password))
             throw new Exception(getString(R.string.not_matching_password_err));
@@ -54,7 +53,7 @@ public class ChgPasswordActivity extends FormActivity {
         areTextMatching(newPassword, newPassword2);
 
         int id = Integer.parseInt(intent.getStringExtra("user_id"));
-        db.userdao().updateUserPassword(id, getHashedPassword(newPassword.getText().toString()));
+        db.userDAO().updateUserPassword(id, getHashedPassword(newPassword.getText().toString()));
         toastMessage(getString(R.string.chg_password_done));
         finish();
     }

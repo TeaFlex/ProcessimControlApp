@@ -6,9 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,7 +32,7 @@ public class AdminUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         intent = getIntent();
         db = AppDatabase.getInstance(this);
-        current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
         updateList();
 
         if(current_user.role != Role.ADMIN) {
@@ -78,7 +76,7 @@ public class AdminUserActivity extends AppCompatActivity {
                         R.layout.support_simple_spinner_dropdown_item, Role.values()));
                 builder.setView(customLayout);
                 builder.setPositiveButton(R.string.accept, ((dialog, which) -> {
-                    db.userdao().updateUserRole(received_id,
+                    db.userDAO().updateUserRole(received_id,
                             Role.valueOf(spin.getSelectedItem().toString()));
                     updateList();
                     Toast.makeText(this, getString(R.string.user_role_updated, received_id),
@@ -97,7 +95,7 @@ public class AdminUserActivity extends AppCompatActivity {
 
     public void updateList(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admin_user);
-        ArrayList<User> users = new ArrayList<>(db.userdao().getAllUsersExcept(current_user.id));
+        ArrayList<User> users = new ArrayList<>(db.userDAO().getAllUsersExcept(current_user.id));
         UserAdapter adapter = new UserAdapter(users);
         binding.userList.setAdapter(adapter);
         binding.setIsListmpty(users.isEmpty());
@@ -105,11 +103,11 @@ public class AdminUserActivity extends AppCompatActivity {
     }
 
     public void deleteElement(int id) {
-        db.userdao().deleteUserById(id);
+        db.userDAO().deleteUserById(id);
         updateList();
     }
 
     public User getUser(int id) {
-        return db.userdao().getUserById(id);
+        return db.userDAO().getUserById(id);
     }
 }

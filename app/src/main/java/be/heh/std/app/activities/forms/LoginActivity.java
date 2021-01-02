@@ -62,7 +62,7 @@ public class LoginActivity extends FormActivity {
         verifyEmail(email);
 
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        User u = db.userdao().getUserByEmail(email.getText().toString().toLowerCase());
+        User u = db.userDAO().getUserByEmail(email.getText().toString().toLowerCase());
 
         if(u == null)
             throw new Exception(getString(R.string.nonexistent_user_err));

@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import be.heh.std.app.R;
-import be.heh.std.app.activities.forms.FormActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 
@@ -44,7 +43,7 @@ public class ModProfileActivity extends FormActivity {
 
 
         db = AppDatabase.getInstance(getApplicationContext());
-        user = db.userdao().getUserById(id);
+        user = db.userDAO().getUserById(id);
 
 
         email.setText(user.email);
@@ -60,12 +59,12 @@ public class ModProfileActivity extends FormActivity {
         verifyLength(firstname, 4, 20);
         verifyLength(lastname, 4, 20);
 
-        if((db.userdao().getUserByEmail(email.getText().toString()) != null)
+        if((db.userDAO().getUserByEmail(email.getText().toString()) != null)
         && (!Objects.equals(user.email, email.getText().toString())))
             throw new Exception(getString(R.string.taken_email_err));
 
 
-        db.userdao().updateUserBasicInfos(id,
+        db.userDAO().updateUserBasicInfos(id,
                 firstname.getText().toString(),
                 lastname.getText().toString(),
                 email.getText().toString().toLowerCase());

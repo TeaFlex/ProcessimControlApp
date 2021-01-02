@@ -20,6 +20,7 @@ public class AddPlcActivity extends FormActivity {
     private EditText ip;
     private EditText rack;
     private EditText slot;
+    private EditText datablock;
     private Spinner type;
 
     @Override
@@ -32,9 +33,10 @@ public class AddPlcActivity extends FormActivity {
         ip = (EditText) findViewById(R.id.addPlc_ip);
         rack = (EditText) findViewById(R.id.addPlc_rack);
         slot = (EditText) findViewById(R.id.addPlc_slot);
+        datablock = (EditText) findViewById(R.id.addPlc_datablock);
         type = (Spinner) findViewById(R.id.addPlc_type);
 
-        notEmptyInputs.addAll(Arrays.asList(ip, rack, slot));
+        notEmptyInputs.addAll(Arrays.asList(ip, rack, slot, datablock));
         form.setVisibility(View.VISIBLE);
         type.setAdapter(new ArrayAdapter<PlcType>(this,
                 R.layout.support_simple_spinner_dropdown_item, PlcType.values()));
@@ -51,6 +53,7 @@ public class AddPlcActivity extends FormActivity {
         plcConf.ip = ip.getText().toString();
         plcConf.slot = slot.getText().toString();
         plcConf.rack = rack.getText().toString();
+        plcConf.data_block = datablock.getText().toString();
         plcConf.type = PlcType.valueOf(type.getSelectedItem().toString());
         db.plcConfDAO().addConf(plcConf);
         toastMessage(getString(R.string.plc_added));

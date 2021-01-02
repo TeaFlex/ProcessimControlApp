@@ -72,7 +72,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public void refreshContent() {
         ActivityWelcomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
         binding.setUser(user);
     }
 }

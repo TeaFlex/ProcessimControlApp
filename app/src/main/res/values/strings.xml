@@ -33,6 +33,7 @@
     <string name="connect_to_plc">Connect to a PLC</string>
     <string name="rack">Rack</string>
     <string name="slot">Slot</string>
+    <string name="datablock">Datablock</string>
     <string name="plc">PLC</string>
     <string name="add_plc">Add a PLC</string>
     <string name="plc_list">PLC list</string>

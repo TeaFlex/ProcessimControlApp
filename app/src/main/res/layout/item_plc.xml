@@ -54,6 +54,14 @@
                     android:layout_height="wrap_content"
                     android:text="@{@string/double_dot(@string/type, plc.type.name())}" />
             </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/plc_datablock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/double_dot(@string/datablock, plc.data_block)}"/>
+            </TableRow>
         </TableLayout>
 
         <Button

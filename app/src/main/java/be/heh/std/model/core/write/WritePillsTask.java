@@ -4,6 +4,11 @@ public class WritePillsTask extends WriteTask {
 
     public WritePillsTask(int datablock) {
         super(datablock);
+
+        dbb.put(5, new byte[16]);
+        dbb.put(6, new byte[16]);
+        dbb.put(7, new byte[16]);
+
     }
 
     @Override

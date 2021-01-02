@@ -33,6 +33,7 @@ public class PlcPillsActivity extends AppCompatActivity {
     private NetworkInfo networkInfo;
     private ConnectivityManager connectivityManager;
     private  ActivityPlcPillsBinding binding;
+    private int datablock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class PlcPillsActivity extends AppCompatActivity {
         db = AppDatabase.getInstance(this);
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
-        current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
-
+        current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
+        datablock = Integer.parseInt(current_conf.data_block);
         HashMap<String, String> values = new HashMap<>();
 
 
@@ -58,11 +59,11 @@ public class PlcPillsActivity extends AppCompatActivity {
 
         readS7 = new ReadPillsTask(this, binding.referencePills, binding.inServicePills,
                 binding.rSupplyPills, binding.isRemotePills, binding.rNbBottles,
-                binding.rNbPills, binding.connectionTestPills, 5);
+                binding.rNbPills, binding.connectionTestPills, datablock);
         readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
 
         if(current_user.role != Role.BASIC) {
-            writeS7 = new WritePillsTask(5);
+            writeS7 = new WritePillsTask(datablock);
             writeS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
         }
     }
@@ -77,8 +78,23 @@ public class PlcPillsActivity extends AppCompatActivity {
     }
 
     public void onPlcPillsClickManager(View v) {
-        switch (v.getId()) {
-
+        try {
+            switch (v.getId()) {
+                case R.id.w_5_pills:
+                    break;
+                case R.id.w_10_pills:
+                    break;
+                case R.id.w_15_pills:
+                    break;
+                case R.id.w_gen_bottles_pills:
+                    break;
+                case R.id.w_reset_bottles_pills:
+                    break;
+                case R.id.w_set_service_pills:
+                    break;
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
         }
     }
 }

@@ -146,19 +146,22 @@
                             android:id="@+id/w_set_service_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/gen_bottles" />
+                            android:text="@string/gen_bottles"
+                            android:onClick="onPlcPillsClickManager"/>
 
                         <Switch
                             android:id="@+id/w_gen_bottles_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/start_stop" />
+                            android:text="@string/start_stop"
+                            android:onClick="onPlcPillsClickManager"/>
 
                         <Button
                             android:id="@+id/w_reset_bottles_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/reset_bottles"/>
+                            android:text="@string/reset_bottles"
+                            android:onClick="onPlcPillsClickManager"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -174,19 +177,22 @@
                             android:id="@+id/w_5_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/n_pills(5)}" />
+                            android:text="@{@string/n_pills(5)}"
+                            android:onClick="onPlcPillsClickManager"/>
 
                         <Button
                             android:id="@+id/w_10_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/n_pills(10)}" />
+                            android:text="@{@string/n_pills(10)}"
+                            android:onClick="onPlcPillsClickManager"/>
 
                         <Button
                             android:id="@+id/w_15_pills"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/n_pills(15)}" />
+                            android:text="@{@string/n_pills(15)}"
+                            android:onClick="onPlcPillsClickManager"/>
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

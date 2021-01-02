@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         intent = new Intent(this, LoginActivity.class);
         try {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            Boolean isDatabaseEmpty = (db.userdao().getCountOfUsers() == 0);
+            Boolean isDatabaseEmpty = (db.userDAO().getCountOfUsers() == 0);
 
             if(isDatabaseEmpty) {
                 intent = new Intent(this, RegisterActivity.class);

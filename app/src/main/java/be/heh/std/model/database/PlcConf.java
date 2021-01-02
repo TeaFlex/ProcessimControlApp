@@ -15,5 +15,7 @@ public class PlcConf {
     @NonNull
     public String slot;
     @NonNull
+    public String data_block;
+    @NonNull
     public PlcType type;
 }

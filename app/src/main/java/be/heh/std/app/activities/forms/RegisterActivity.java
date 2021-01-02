@@ -12,8 +12,6 @@ import androidx.annotation.RequiresApi;
 import java.util.Arrays;
 
 import be.heh.std.app.R;
-import be.heh.std.app.activities.forms.FormActivity;
-import be.heh.std.app.activities.forms.LoginActivity;
 import be.heh.std.model.database.AppDatabase;
 import be.heh.std.model.database.User;
 import be.heh.std.model.database.Role;
@@ -82,10 +80,10 @@ public class RegisterActivity extends FormActivity {
         newUser.password = getHashedPassword(password.getText().toString());
         newUser.role = (firstTime)? Role.ADMIN : Role.BASIC;
 
-        if(db.userdao().getUserByEmail(newUser.email) != null)
+        if(db.userDAO().getUserByEmail(newUser.email) != null)
             throw new Exception(getString(R.string.taken_email_err));
 
-        db.userdao().addUser(newUser);
+        db.userDAO().addUser(newUser);
 
         toastMessage(getString(R.string.register_success));
         startActivity(new Intent(this, LoginActivity.class));

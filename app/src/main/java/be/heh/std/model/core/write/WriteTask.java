@@ -22,6 +22,7 @@ public abstract class WriteTask {
     private int datablock;
     protected HashMap<Integer, byte[]> dbb;
     protected HashMap<Integer, byte[]> dbw;
+    protected HashMap<Integer, byte[]> dbbyte;
 
     public WriteTask(int datablock) {
         this.datablock = datablock;

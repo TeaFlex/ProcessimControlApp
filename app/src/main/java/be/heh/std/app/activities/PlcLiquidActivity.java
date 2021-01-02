@@ -36,6 +36,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
     private NetworkInfo networkInfo;
     private ConnectivityManager connectivityManager;
     private ActivityPlcLiquidBinding binding;
+    private int datablock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,9 @@ public class PlcLiquidActivity extends AppCompatActivity {
         db = AppDatabase.getInstance(this);
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
-        current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
+        datablock = Integer.parseInt(current_conf.data_block);
+
         HashMap<Integer, TextView> valves = new HashMap<>();
         valves.put(1, binding.rValve1Liquid);
         valves.put(2, binding.rValve2Liquid);
@@ -96,11 +99,11 @@ public class PlcLiquidActivity extends AppCompatActivity {
 
         readS7 = new ReadLiquidTask(this, valves, binding.rLvlLiquid, binding.reference,
                 binding.rModeLiquid, binding.rPilotLiquid, binding.rAutoLiquid,
-                binding.rManualLiquid, binding.rIsRemoteLiquid, binding.connectionTestLiquid, 5);
+                binding.rManualLiquid, binding.rIsRemoteLiquid, binding.connectionTestLiquid, datablock);
         readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
 
         if(current_user.role != Role.BASIC) {
-            writeS7 = new WriteLiquidTask(5);
+            writeS7 = new WriteLiquidTask(datablock);
             writeS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
         }
     }

@@ -33,7 +33,7 @@ public class PlcManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         intent = getIntent();
         db =  AppDatabase.getInstance(getApplicationContext());
-        current_user = db.userdao().getUserById(intent.getIntExtra("user_id", 0));
+        current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
         updateList();
     }
 
