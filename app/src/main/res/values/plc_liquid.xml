@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="valve_n">Valve %d</string>
+    <string name="mode">mode: %s</string>
+    <string name="liquid_lvl">Liquid level: %d</string>
+    <string name="manual_deposit">Manual deposit: %d</string>
+    <string name="auto_deposit">Auto deposit: %d</string>
+    <string name="auto">Automatic</string>
+    <string name="manual">Manual</string>
     <string name="manual_auto">Manual/Auto</string>
-
+    <string name="pilot">Pilot : %d</string>
 </resources>

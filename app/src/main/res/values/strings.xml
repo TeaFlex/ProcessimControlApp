@@ -43,4 +43,6 @@
     <string name="write">WRITE</string>
     <string name="on">On</string>
     <string name="off">Off</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
 </resources>

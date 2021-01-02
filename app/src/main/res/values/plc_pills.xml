@@ -2,4 +2,6 @@
 <resources>
     <string name="nb_pills">Number of pills: %d</string>
     <string name="nb_bottles">Number of bottles: %d</string>
+    <string name="supply_asked">Supply asked: %d</string>
+
 </resources>

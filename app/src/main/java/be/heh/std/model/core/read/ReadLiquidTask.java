@@ -1,28 +1,26 @@
 package be.heh.std.model.core.read;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;
-import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadLiquidTask extends ReadTask {
 
-    private HashMap<Integer, TextView> valves;
-    private TextView liquid_lvl;
-    private TextView reference;
-    private TextView mode;
-    private TextView pilot;
-    private TextView auto_deposit;
-    private TextView manual_deposit;
-    private TextView is_remote_controlled;
+    private final HashMap<Integer, TextView> valves;
+    private final TextView liquid_lvl;
+    private final TextView reference;
+    private final TextView mode;
+    private final TextView pilot;
+    private final TextView auto_deposit;
+    private final TextView manual_deposit;
+    private final TextView is_remote_controlled;
 
     public ReadLiquidTask(HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
                           TextView mode, TextView pilot, TextView auto_deposit,
@@ -58,18 +56,19 @@ public class ReadLiquidTask extends ReadTask {
     @Override
     protected void downloadOnPreExecute(int... values) {
         if(values.length == 11) {
-            Resources r = Resources.getSystem();
             for(Map.Entry<Integer, TextView> entry : valves.entrySet()) {
                 Integer key = entry.getKey();
-                valves.get(key).setText(String.valueOf(values[key-1]));
+                String current_valve = context.getString(R.string.valve_n, key);
+                String v_state = context.getString((values[key - 1] == 0)? R.string.closed : R.string.open);
+                valves.get(key).setText(String.format("%s : %s", current_valve, v_state));
             }
-            manual_deposit.setText(String.valueOf(values[4]));
-            auto_deposit.setText(String.valueOf(values[5]));
-            liquid_lvl.setText(String.valueOf(values[6]));
-            pilot.setText(String.valueOf(values[7]));
-            mode.setText((values[8] == 0)? R.string.off : R.string.on);
-            is_remote_controlled.setText((values[9] == 0)? R.string.off : R.string.on);
-            reference.setText(String.valueOf(values[10]));
+            manual_deposit.setText(context.getString(R.string.manual_deposit, values[4]));
+            auto_deposit.setText(context.getString(R.string.auto_deposit, values[5]));
+            liquid_lvl.setText(context.getString(R.string.liquid_lvl, values[6]));
+            pilot.setText(context.getString(R.string.pilot, values[7]));
+            mode.setText(context.getString(R.string.mode, context.getString((values[8] == 0)? R.string.auto: R.string.manual)));
+            is_remote_controlled.setText(context.getString(R.string.remote_ctrl, context.getString((values[9] == 0)? R.string.on: R.string.off)));
+            reference.setText(context.getString(R.string.cpu_ref, values[10]));
         }
     }
 
@@ -118,9 +117,9 @@ public class ReadLiquidTask extends ReadTask {
 
                 //Decimal values
                 liquid_level_data = S7.GetWordAt(dbw.get(16),0);
-                automatic_deposit_data = S7.GetWordAt(dbw.get(18), 0);
+                automatic_deposit_data = S7.GetWordAt(dbw.get(22), 0);
                 manual_deposit_data = S7.GetWordAt(dbw.get(20),0);
-                pilot_data = S7.GetWordAt(dbw.get(22),0);
+                pilot_data = S7.GetWordAt(dbw.get(18),0);
 
                 //Binary values
                 for (int i = 0; i < valves_data.length; i++)

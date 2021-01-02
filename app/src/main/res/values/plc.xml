@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="net_status">Network status: %s</string>
+    <string name="cpu_ref">CPU : %d</string>
+    <string name="remote_ctrl">Remote: %s</string>
+    <string name="in_service">In service: %s</string>
+</resources>

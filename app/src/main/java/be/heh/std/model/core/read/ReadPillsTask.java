@@ -1,17 +1,9 @@
 package be.heh.std.model.core.read;
 
-import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import be.heh.std.app.R;
 import be.heh.std.imported.simaticS7.S7;
-import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadPillsTask extends ReadTask {
 
@@ -55,12 +47,12 @@ public class ReadPillsTask extends ReadTask {
     @Override
     protected void downloadOnPreExecute(int... values) {
         if(values.length == 6) {
-            nb_pills.setText(String.valueOf(values[0]));
-            nb_bottles.setText(String.valueOf(values[1]));
-            supply_asked.setText(String.valueOf(values[2]));
-            is_remote_controlled.setText((values[3] == 0)? R.string.off : R.string.on);
-            in_service.setText((values[4] == 0)? R.string.off : R.string.on);
-            reference.setText(String.valueOf(values[5]));
+            nb_pills.setText(context.getString(R.string.nb_pills, values[0]));
+            nb_bottles.setText(context.getString(R.string.nb_bottles, values[1]));
+            supply_asked.setText(context.getString(R.string.supply_asked, values[2]));
+            is_remote_controlled.setText(context.getString(R.string.remote_ctrl, onOrOff(values[3])));
+            in_service.setText(context.getString(R.string.in_service, onOrOff(values[4])));
+            reference.setText(context.getString(R.string.cpu_ref, values[5]));
         }
     }
 
