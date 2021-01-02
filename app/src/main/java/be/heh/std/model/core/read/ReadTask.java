@@ -40,7 +40,6 @@ public abstract class ReadTask {
 
     //Text view giving network state of the plc.
     private TextView net_status;
-    private HashMap<String, Integer> values;
 
     public ReadTask(TextView net_status, int datablock) {
         this.net_status = net_status;
@@ -50,7 +49,6 @@ public abstract class ReadTask {
         dbb = new HashMap<>();
         dbw = new HashMap<>();
         this.datablock = datablock;
-        this.values = values;
     }
 
     public int getDatablock() {
