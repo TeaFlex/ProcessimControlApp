@@ -8,7 +8,8 @@ public class WritePillsTask extends WriteTask {
         dbb.put(5, new byte[16]);
         dbb.put(6, new byte[16]);
         dbb.put(7, new byte[16]);
-
+        dbb.put(8, new byte[16]);
+        dbw.put(18, new byte[16]);
     }
 
     @Override
@@ -20,7 +21,10 @@ public class WritePillsTask extends WriteTask {
 
         @Override
         protected void toRun() {
+            Integer writePlc = 0;
 
+            writePlc = writeBits();
+            writePlc = writeInts();
         }
     }
 }

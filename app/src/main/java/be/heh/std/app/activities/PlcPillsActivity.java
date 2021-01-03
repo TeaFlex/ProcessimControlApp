@@ -79,18 +79,31 @@ public class PlcPillsActivity extends AppCompatActivity {
 
     public void onPlcPillsClickManager(View v) {
         try {
+            boolean value = false;
             switch (v.getId()) {
                 case R.id.w_5_pills:
+                    writeS7.setBitAtDbb(1, true, 0, 5);
+                    writeS7.setBitAtDbb(1, false, 0, 5);
                     break;
                 case R.id.w_10_pills:
+                    writeS7.setBitAtDbb(2, true, 0, 5);
+                    writeS7.setBitAtDbb(2, false, 0, 5);
                     break;
                 case R.id.w_15_pills:
+                    writeS7.setBitAtDbb(3, true, 0, 5);
+                    writeS7.setBitAtDbb(3, false, 0, 5);
                     break;
                 case R.id.w_gen_bottles_pills:
+                    value = binding.wGenBottlesPills.isChecked();
+                    writeS7.setBitAtDbb(3, value, 0, 6);
                     break;
                 case R.id.w_reset_bottles_pills:
+                    writeS7.setBitAtDbb(2, true, 0, 6);
+                    writeS7.setBitAtDbb(2, false, 0, 6);
                     break;
                 case R.id.w_set_service_pills:
+                    value = binding.wSetServicePills.isChecked();
+                    writeS7.setBitAtDbb(0, value, 0, 5);
                     break;
             }
         } catch (Exception e) {

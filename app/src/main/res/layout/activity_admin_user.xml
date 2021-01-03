@@ -17,6 +17,7 @@
         tools:context=".activities.AdminUserActivity">
 
         <RelativeLayout
+            android:padding="@dimen/padding"
             android:layout_margin="@dimen/big_margin"
             android:id="@+id/user_box"
             android:layout_width="@dimen/block_width"
