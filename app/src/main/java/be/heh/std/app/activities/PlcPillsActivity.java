@@ -71,9 +71,8 @@ public class PlcPillsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(readS7.isReading())
-            readS7.stop();
-        if(writeS7.isWriting() && current_user.role != Role.BASIC)
+        readS7.stop();
+        if(current_user.role != Role.BASIC)
             writeS7.stop();
     }
 

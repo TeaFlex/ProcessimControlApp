@@ -29,6 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{@string/first_name+ `: ` + user.firstname}"/>
+            </TableRow>
+            <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{@string/user_id+ `: ` + user.id}"/>
-
+            </TableRow>
+            <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
