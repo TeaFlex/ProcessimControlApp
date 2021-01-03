@@ -88,6 +88,14 @@ public abstract class WriteTask {
         else throw new IndexOutOfBoundsException();
     }
 
+    public void setByteAtDbb(boolean value, int pos,  int index_dbb) throws IndexOutOfBoundsException {
+        if(!dbb.containsKey(index_dbb))
+            throw new IndexOutOfBoundsException();
+
+        for(int i = 0; i < 8; i++)
+            S7.SetBitAt(dbb.get(index_dbb), pos, i, value);
+    }
+
     protected abstract class WriteAutomateS7 implements Runnable{
 
         @Override
@@ -118,14 +126,14 @@ public abstract class WriteTask {
             return res;
         }
 
-        protected int writeInts() {
+        protected int writeWords() {
             Integer writePlc = 0;
             for (Integer key : dbw.keySet())
                 writePlc = comS7.WriteArea(S7.S7AreaDB, getDatablock(), key, 2, dbw.get(key));
             return writePlc;
         }
 
-        protected int writeBits() {
+        protected int writeBytes() {
             Integer writePlc = 0;
             for (Integer key : dbb.keySet())
                 writePlc = comS7.WriteArea(S7.S7AreaDB, getDatablock(), key, 1, dbb.get(key));

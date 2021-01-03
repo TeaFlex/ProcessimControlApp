@@ -65,6 +65,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 writeS7.setWordAtDbw(progress, 0, 28);
+                writeS7.setWordAtDbw(progress, 0, 24);
                 binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, progress));
             }
 
@@ -80,6 +81,7 @@ public class PlcLiquidActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                writeS7.setWordAtDbw(progress, 0, 26);
                 writeS7.setWordAtDbw(progress, 0, 30);
                 binding.wLabelPilotLiquid.setText(getString(R.string.pilot, progress));
             }
@@ -122,27 +124,32 @@ public class PlcLiquidActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.w_manual_auto_liquid:
                     value = binding.wManualAutoLiquid.isChecked();
-                    writeS7.setWriteBoolDbb(5, value, 2);
+                    writeS7.setBitAtDbb(5, value, 0, 2);
+                    writeS7.setBitAtDbb(5, value, 0, 3);
                     break;
 
                 case R.id.w_valve1_liquid:
                     value = binding.wValve1Liquid.isChecked();
-                    writeS7.setWriteBoolDbb(1, value, 2);
+                    writeS7.setBitAtDbb(1, value, 0, 2);
+                    writeS7.setBitAtDbb(1, value, 0, 3);
                     break;
 
                 case R.id.w_valve2_liquid:
                     value = binding.wValve2Liquid.isChecked();
-                    writeS7.setWriteBoolDbb(2, value, 2);
+                    writeS7.setBitAtDbb(2, value, 0, 2);
+                    writeS7.setBitAtDbb(2, value, 0, 3);
                     break;
 
                 case R.id.w_valve3_liquid:
                     value = binding.wValve3Liquid.isChecked();
-                    writeS7.setWriteBoolDbb(3, value, 2);
+                    writeS7.setBitAtDbb(3, value, 0, 2);
+                    writeS7.setBitAtDbb(3, value, 0, 3);
                     break;
 
                 case R.id.w_valve4_liquid:
                     value = binding.wValve4Liquid.isChecked();
-                    writeS7.setWriteBoolDbb(4, value, 2);
+                    writeS7.setBitAtDbb(4, value, 0, 2);
+                    writeS7.setBitAtDbb(4, value, 0, 3);
                     break;
             }
             Log.i("INPUT" , String.valueOf(v.getId()));

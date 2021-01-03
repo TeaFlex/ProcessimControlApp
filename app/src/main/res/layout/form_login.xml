@@ -46,6 +46,7 @@ android:orientation="vertical"
         android:layout_height="wrap_content"
         android:id="@+id/dev_connect"
         android:text="dev connect"
+        android:visibility="gone"
         android:onClick="onFormClickManager"/>
 
 </LinearLayout>

@@ -23,8 +23,8 @@ public class WritePillsTask extends WriteTask {
         protected void toRun() {
             Integer writePlc = 0;
 
-            writePlc = writeBits();
-            writePlc = writeInts();
+            writePlc = writeBytes();
+            writePlc = writeWords();
         }
     }
 }

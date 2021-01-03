@@ -5,4 +5,7 @@
     <string name="remote_ctrl">Remote: %s</string>
     <string name="in_service">In service: %s</string>
     <string name="start_stop">Stop/Start</string>
+    <string name="int_value">Int value: %d</string>
+    <string name="byte_value">Byte value</string>
+    <string name="bit_value">Bit %d</string>
 </resources>
