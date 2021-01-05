@@ -8,32 +8,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import be.heh.std.app.R;
+import be.heh.std.app.databinding.ActivityPlcLiquidBinding;
 import be.heh.std.imported.simaticS7.S7;
 
 public class ReadLiquidTask extends ReadTask {
 
-    private final HashMap<Integer, TextView> valves;
-    private final TextView liquid_lvl;
-    private final TextView reference;
-    private final TextView mode;
-    private final TextView pilot;
-    private final TextView auto_deposit;
-    private final TextView manual_deposit;
-    private final TextView is_remote_controlled;
+    private ActivityPlcLiquidBinding binding;
+    private  HashMap<Integer, TextView> valves;
 
-    public ReadLiquidTask(Activity current_activity, HashMap<Integer, TextView>valves, TextView liquid_lvl, TextView reference,
-                          TextView mode, TextView pilot, TextView auto_deposit,
-                          TextView manual_deposit, TextView is_remote_controlled,
-                          TextView net_status, int datablock) {
-        super(net_status, current_activity, datablock);
-        this.valves = valves;
-        this.liquid_lvl = liquid_lvl;
-        this.reference = reference;
-        this.mode = mode;
-        this.pilot = pilot;
-        this.auto_deposit = auto_deposit;
-        this.manual_deposit = manual_deposit;
-        this.is_remote_controlled = is_remote_controlled;
+    public ReadLiquidTask(ActivityPlcLiquidBinding binding, Activity current_activity, int datablock) {
+        super(binding.connectionTestLiquid, current_activity, datablock);
+        this.binding = binding;
+        this.valves = new HashMap<>();
+        valves.put(1, binding.rValve1Liquid);
+        valves.put(2, binding.rValve2Liquid);
+        valves.put(3, binding.rValve3Liquid);
+        valves.put(4, binding.rValve4Liquid);
 
         //valves, mode and remote
         dbb.put(0, new byte[16]);
@@ -62,13 +52,13 @@ public class ReadLiquidTask extends ReadTask {
                     String v_state = context.getString((values[key - 1] == 0)? R.string.closed : R.string.open);
                     valves.get(key).setText(String.format("%s : %s", current_valve, v_state));
                 }
-                manual_deposit.setText(context.getString(R.string.manual_deposit, values[4]));
-                auto_deposit.setText(context.getString(R.string.auto_deposit, values[5]));
-                liquid_lvl.setText(context.getString(R.string.liquid_lvl, values[6]));
-                pilot.setText(context.getString(R.string.pilot, values[7]));
-                mode.setText(context.getString(R.string.mode, context.getString((values[8] == 0)? R.string.auto: R.string.manual)));
-                is_remote_controlled.setText(context.getString(R.string.remote_ctrl, context.getString((values[9] == 0)? R.string.on: R.string.off)));
-                reference.setText(context.getString(R.string.cpu_ref, values[10]));
+                binding.rManualLiquid.setText(context.getString(R.string.manual_deposit, values[4]));
+                binding.rAutoLiquid.setText(context.getString(R.string.auto_deposit, values[5]));
+                binding.rLvlLiquid.setText(context.getString(R.string.liquid_lvl, values[6]));
+                binding.rPilotLiquid.setText(context.getString(R.string.pilot, values[7]));
+                binding.rModeLiquid.setText(context.getString(R.string.mode, context.getString((values[8] == 0)? R.string.auto: R.string.manual)));
+                binding.rIsRemoteLiquid.setText(context.getString(R.string.remote_ctrl, context.getString((values[9] == 0)? R.string.on: R.string.off)));
+                binding.reference.setText(context.getString(R.string.cpu_ref, values[10]));
             }
         });
     }
@@ -81,12 +71,13 @@ public class ReadLiquidTask extends ReadTask {
                 Integer key = entry.getKey();
                 valves.get(key).setText(none);
             }
-            manual_deposit.setText(none);
-            auto_deposit.setText(none);
-            liquid_lvl.setText(none);
-            pilot.setText(none);
-            mode.setText(none);
-            is_remote_controlled.setText(none);
+            binding.rManualLiquid.setText(none);
+            binding.rAutoLiquid.setText(none);
+            binding.rLvlLiquid.setText(none);
+            binding.rPilotLiquid.setText(none);
+            binding.rModeLiquid.setText(none);
+            binding.rIsRemoteLiquid.setText(none);
+            binding.reference.setText(none);
         });
     }
 

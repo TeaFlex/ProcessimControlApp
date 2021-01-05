@@ -44,38 +44,20 @@ public class PlcPillsActivity extends AppCompatActivity {
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
+        binding.setConf(current_conf);
+        binding.setUser(current_user);
+        setSeekers();
         datablock = Integer.parseInt(current_conf.data_block);
-        HashMap<String, String> values = new HashMap<>();
-
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
-        binding.setConf(current_conf);
-        binding.setUser(current_user);
-
-        binding.wIntLabelPills.setText(getString(R.string.int_value, 0));
-        binding.wIntPills.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                binding.wIntLabelPills.setText(getString(R.string.int_value, progress));
-                writeS7.setWordAtDbw(progress, 0, 18);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
 
         if(networkInfo == null || !networkInfo.isConnectedOrConnecting()){
             Toast.makeText(getApplicationContext(), R.string.network_err, Toast.LENGTH_LONG).show();
             finish();
         }
 
-        readS7 = new ReadPillsTask(this, binding.referencePills, binding.inServicePills,
-                binding.rSupplyPills, binding.isRemotePills, binding.rNbBottles,
-                binding.rNbPills, binding.connectionTestPills, datablock);
+        readS7 = new ReadPillsTask(binding, this, datablock);
         readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
 
         if(current_user.role != Role.BASIC) {
@@ -130,5 +112,22 @@ public class PlcPillsActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    protected void setSeekers() {
+        binding.wIntLabelPills.setText(getString(R.string.int_value, 0));
+        binding.wIntPills.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                binding.wIntLabelPills.setText(getString(R.string.int_value, progress));
+                writeS7.setWordAtDbw(progress, 0, 18);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
     }
 }

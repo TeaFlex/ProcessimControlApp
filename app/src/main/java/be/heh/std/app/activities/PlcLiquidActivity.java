@@ -46,62 +46,21 @@ public class PlcLiquidActivity extends AppCompatActivity {
         intent = getIntent();
         current_conf = db.plcConfDAO().getConfById(intent.getIntExtra("plc_id", 0));
         current_user = db.userDAO().getUserById(intent.getIntExtra("user_id", 0));
+        binding.setConf(current_conf);
+        binding.setUser(current_user);
+        setSeekers();
         datablock = Integer.parseInt(current_conf.data_block);
-
-        HashMap<Integer, TextView> valves = new HashMap<>();
-        valves.put(1, binding.rValve1Liquid);
-        valves.put(2, binding.rValve2Liquid);
-        valves.put(3, binding.rValve3Liquid);
-        valves.put(4, binding.rValve4Liquid);
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
-        binding.setConf(current_conf);
-        binding.setUser(current_user);
-
-        binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, 0));
-        binding.wManualDepositLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                writeS7.setWordAtDbw(progress, 0, 28);
-                writeS7.setWordAtDbw(progress, 0, 24);
-                binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-
-        binding.wLabelPilotLiquid.setText(getString(R.string.pilot, 0));
-        binding.wPilotLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                writeS7.setWordAtDbw(progress, 0, 26);
-                writeS7.setWordAtDbw(progress, 0, 30);
-                binding.wLabelPilotLiquid.setText(getString(R.string.pilot, progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-
+        
         if(networkInfo == null || !networkInfo.isConnectedOrConnecting()){
             Toast.makeText(getApplicationContext(), R.string.network_err,
                     Toast.LENGTH_LONG).show();
             finish();
         }
 
-        readS7 = new ReadLiquidTask(this, valves, binding.rLvlLiquid, binding.reference,
-                binding.rModeLiquid, binding.rPilotLiquid, binding.rAutoLiquid,
-                binding.rManualLiquid, binding.rIsRemoteLiquid, binding.connectionTestLiquid, datablock);
+        readS7 = new ReadLiquidTask(binding, this, datablock);
         readS7.start(current_conf.ip, current_conf.rack, current_conf.slot);
 
         if(current_user.role != Role.BASIC) {
@@ -157,5 +116,41 @@ public class PlcLiquidActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    protected void setSeekers() {
+        binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, 0));
+        binding.wManualDepositLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                writeS7.setWordAtDbw(progress, 0, 28);
+                writeS7.setWordAtDbw(progress, 0, 24);
+                binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+        binding.wLabelPilotLiquid.setText(getString(R.string.pilot, 0));
+        binding.wPilotLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                writeS7.setWordAtDbw(progress, 0, 26);
+                writeS7.setWordAtDbw(progress, 0, 30);
+                binding.wLabelPilotLiquid.setText(getString(R.string.pilot, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
     }
 }

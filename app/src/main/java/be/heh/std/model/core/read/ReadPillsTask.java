@@ -4,30 +4,21 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import be.heh.std.app.R;
+import be.heh.std.app.databinding.ActivityPlcPillsBinding;
 import be.heh.std.imported.simaticS7.S7;
 
 public class ReadPillsTask extends ReadTask {
 
-    private TextView reference;
-    private TextView in_service;
-    private TextView supply_asked;
-    private TextView is_remote_controlled;
-    private TextView nb_pills;
-    private TextView nb_bottles;
+    private ActivityPlcPillsBinding binding;
 
-
-    public ReadPillsTask(Activity current_activity, TextView reference, TextView in_service, TextView supply_asked,
-                         TextView is_remote_controlled, TextView nb_pills, TextView nb_bottles,
-                         TextView net_status, int datablock) {
-
-        super(net_status, current_activity, datablock);
-        this.reference = reference;
-        this.in_service = in_service;
-        this.nb_bottles = nb_bottles;
-        this.nb_pills = nb_pills;
-        this.supply_asked = supply_asked;
-        this.is_remote_controlled = is_remote_controlled;
+    public ReadPillsTask(ActivityPlcPillsBinding binding, Activity current_activity, int datablock) {
+        super(binding.connectionTestPills, current_activity, datablock);
+        this.binding = binding;
 
         //in service
         dbb.put(0, new byte[16]);
@@ -50,12 +41,12 @@ public class ReadPillsTask extends ReadTask {
     protected void downloadOnPreExecute(int... values) {
         current_activity.runOnUiThread(() -> {
             if(values.length == 6) {
-                nb_pills.setText(context.getString(R.string.nb_pills, values[0]));
-                nb_bottles.setText(context.getString(R.string.nb_bottles, values[1]));
-                supply_asked.setText(context.getString(R.string.supply_asked, values[2]));
-                is_remote_controlled.setText(context.getString(R.string.remote_ctrl, onOrOff(values[3])));
-                in_service.setText(context.getString(R.string.in_service, onOrOff(values[4])));
-                reference.setText(context.getString(R.string.cpu_ref, values[5]));
+                binding.rNbPills.setText(context.getString(R.string.nb_pills, values[0]));
+                binding.rNbBottles.setText(context.getString(R.string.nb_bottles, values[1]));
+                binding.rSupplyPills.setText(context.getString(R.string.supply_asked, values[2]));
+                binding.isRemotePills.setText(context.getString(R.string.remote_ctrl, onOrOff(values[3])));
+                binding.inServicePills.setText(context.getString(R.string.in_service, onOrOff(values[4])));
+                binding.referencePills.setText(context.getString(R.string.cpu_ref, values[5]));
             }
         });
     }
@@ -64,12 +55,12 @@ public class ReadPillsTask extends ReadTask {
     protected void downloadOnPostExecute() {
         current_activity.runOnUiThread(() -> {
             String none = "-";
-            nb_pills.setText(none);
-            nb_bottles.setText(none);
-            supply_asked.setText(none);
-            is_remote_controlled.setText(none);
-            in_service.setText(none);
-            reference.setText(none);
+            binding.rNbPills.setText(none);
+            binding.rNbBottles.setText(none);
+            binding.rSupplyPills.setText(none);
+            binding.isRemotePills.setText(none);
+            binding.inServicePills.setText(none);
+            binding.referencePills.setText(none);
         });
     }
 
