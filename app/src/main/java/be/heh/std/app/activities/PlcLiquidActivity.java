@@ -81,50 +81,75 @@ public class PlcLiquidActivity extends AppCompatActivity {
         try {
             boolean value = false;
             switch (v.getId()) {
-                case R.id.w_manual_auto_liquid:
-                    value = binding.wManualAutoLiquid.isChecked();
-                    writeS7.setBitAtDbb(5, value, 0, 2);
-                    writeS7.setBitAtDbb(5, value, 0, 3);
-                    break;
 
                 case R.id.w_valve1_liquid:
+                    //BIT 0
                     value = binding.wValve1Liquid.isChecked();
+                    writeS7.setBitAtDbb(0, value, 0, 2);
+                    writeS7.setBitAtDbb(0, value, 0, 3);
+                    break;
+
+                case R.id.w_valve2_liquid:
+                    //BIT 1
+                    value = binding.wValve2Liquid.isChecked();
                     writeS7.setBitAtDbb(1, value, 0, 2);
                     writeS7.setBitAtDbb(1, value, 0, 3);
                     break;
 
-                case R.id.w_valve2_liquid:
-                    value = binding.wValve2Liquid.isChecked();
+                case R.id.w_valve3_liquid:
+                    //BIT 2
+                    value = binding.wValve3Liquid.isChecked();
                     writeS7.setBitAtDbb(2, value, 0, 2);
                     writeS7.setBitAtDbb(2, value, 0, 3);
                     break;
 
-                case R.id.w_valve3_liquid:
-                    value = binding.wValve3Liquid.isChecked();
+                case R.id.w_valve4_liquid:
+                    //BIT 3
+                    value = binding.wValve4Liquid.isChecked();
                     writeS7.setBitAtDbb(3, value, 0, 2);
                     writeS7.setBitAtDbb(3, value, 0, 3);
                     break;
 
-                case R.id.w_valve4_liquid:
-                    value = binding.wValve4Liquid.isChecked();
+                case R.id.w_manual_auto_liquid:
+                    //BIT 4
+                    value = binding.wManualAutoLiquid.isChecked();
                     writeS7.setBitAtDbb(4, value, 0, 2);
                     writeS7.setBitAtDbb(4, value, 0, 3);
                     break;
+
+                case R.id.w_sw1_liquid:
+                    //BIT 5
+                    value = binding.wSw1Liquid.isChecked();
+                    writeS7.setBitAtDbb(5, value, 0, 2);
+                    writeS7.setBitAtDbb(5, value, 0, 3);
+                    break;
+
+                case R.id.w_sw2_liquid:
+                    //BIT 6
+                    value = binding.wSw2Liquid.isChecked();
+                    writeS7.setBitAtDbb(6, value, 0, 2);
+                    writeS7.setBitAtDbb(6, value, 0, 3);
+                    break;
+
+                case R.id.w_sw3_liquid:
+                    //BIT 7
+                    value = binding.wSw3Liquid.isChecked();
+                    writeS7.setBitAtDbb(7, value, 0, 2);
+                    writeS7.setBitAtDbb(7, value, 0, 3);
+                    break;
             }
-            Log.i("INPUT" , String.valueOf(v.getId()));
-            Log.i("bool" , String.valueOf(value));
         } catch (Exception e) {
             e.getStackTrace();
         }
     }
 
     protected void setSeekers() {
+        //INT DBW24
         binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, 0));
         binding.wManualDepositLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                writeS7.setWordAtDbw(progress, 0, 28);
                 writeS7.setWordAtDbw(progress, 0, 24);
                 binding.wLabelMDepositLiquid.setText(getString(R.string.manual_deposit, progress));
             }
@@ -136,14 +161,48 @@ public class PlcLiquidActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
+        //INT DBW26
         binding.wLabelPilotLiquid.setText(getString(R.string.pilot, 0));
         binding.wPilotLiquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 writeS7.setWordAtDbw(progress, 0, 26);
-                writeS7.setWordAtDbw(progress, 0, 30);
                 binding.wLabelPilotLiquid.setText(getString(R.string.pilot, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+        //INT DBW28
+        binding.wInt1LabelLiquid.setText(getString(R.string.int_value, 0));
+        binding.wInt1Liquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                writeS7.setWordAtDbw(progress, 0, 28);
+                binding.wInt1LabelLiquid.setText(getString(R.string.int_value, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+        //INT DBW30
+        binding.wInt2LabelLiquid.setText(getString(R.string.int_value, 0));
+        binding.wInt2Liquid.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener (){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                writeS7.setWordAtDbw(progress, 0, 30);
+                binding.wInt2LabelLiquid.setText(getString(R.string.int_value, progress));
             }
 
             @Override

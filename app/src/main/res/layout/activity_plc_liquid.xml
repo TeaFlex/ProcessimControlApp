@@ -68,6 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@id/info_block_liquid"
                 android:gravity="center">
 
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -155,94 +156,144 @@
                     android:text="@string/write"
                     android:textSize="@dimen/title_size" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Switch
+                                android:id="@+id/w_manual_auto_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/manual_auto"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_sw1_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/bit_value(1)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_sw2_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/bit_value(2)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_sw3_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/bit_value(3)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Switch
+                                android:id="@+id/w_valve1_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/valve_n(1)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_valve2_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/valve_n(2)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_valve3_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/valve_n(3)}"
+                                android:onClick="onPlcLiquidClickManager" />
+
+                            <Switch
+                                android:id="@+id/w_valve4_liquid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/valve_n(4)}"
+                                android:onClick="onPlcLiquidClickManager" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/w_label_m_deposit_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <SeekBar
+                        android:id="@+id/w_manual_deposit_liquid"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:min="0"
+                        android:max="1000" />
 
-                        <Switch
-                            android:id="@+id/w_manual_auto_liquid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/manual_auto"
-                            android:onClick="onPlcLiquidClickManager" />
-
-
-                        <TextView
-                            android:id="@+id/w_label_m_deposit_liquid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <SeekBar
-                            android:id="@+id/w_manual_deposit_liquid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:min="0"
-                            android:max="1000" />
-
-                        <TextView
-                            android:id="@+id/w_label_pilot_liquid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                        <SeekBar
-                            android:id="@+id/w_pilot_liquid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:min="0"
-                            android:max="1000"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/w_label_pilot_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <SeekBar
+                        android:id="@+id/w_pilot_liquid"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:min="0"
+                        android:max="1000"/>
 
-                        <Switch
-                            android:id="@+id/w_valve1_liquid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@{@string/valve_n(1)}"
-                            android:onClick="onPlcLiquidClickManager" />
+                    <TextView
+                        android:id="@+id/w_int1_label_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <SeekBar
+                        android:id="@+id/w_int1_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:min="0"
+                        android:max="1000"/>
 
-                        <Switch
-                            android:id="@+id/w_valve2_liquid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@{@string/valve_n(2)}"
-                            android:onClick="onPlcLiquidClickManager" />
-
-                        <Switch
-                            android:id="@+id/w_valve3_liquid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@{@string/valve_n(3)}"
-                            android:onClick="onPlcLiquidClickManager" />
-
-                        <Switch
-                            android:id="@+id/w_valve4_liquid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:hint="@{@string/valve_n(4)}"
-                            android:onClick="onPlcLiquidClickManager" />
-                    </LinearLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/w_int2_label_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <SeekBar
+                        android:id="@+id/w_int2_liquid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:min="0"
+                        android:max="1000"/>
+                </LinearLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

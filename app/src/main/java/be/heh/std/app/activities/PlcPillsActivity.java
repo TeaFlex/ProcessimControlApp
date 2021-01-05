@@ -77,33 +77,74 @@ public class PlcPillsActivity extends AppCompatActivity {
     public void onPlcPillsClickManager(View v) {
         try {
             boolean value = false;
-            boolean[] w_pills = {true, true, true, true};//booleans for buttons bit
 
             switch (v.getId()) {
-                case R.id.w_5_pills:
-                    writeS7.setBitAtDbb(1, w_pills[0], 0, 5);
-                    writeS7.setBitAtDbb(1, w_pills[0], 0, 6);
-                    break;
-                case R.id.w_10_pills:
-                    writeS7.setBitAtDbb(2, w_pills[1], 0, 5);
-                    writeS7.setBitAtDbb(2, w_pills[1], 0, 6);
-                    break;
-                case R.id.w_15_pills:
-                    writeS7.setBitAtDbb(3, w_pills[2], 0, 5);
-                    break;
-                case R.id.w_gen_bottles_pills:
-                    value = binding.wGenBottlesPills.isChecked();
-                    writeS7.setBitAtDbb(3, value, 0, 6);
-                    break;
-                case R.id.w_reset_bottles_pills:
-                    writeS7.setBitAtDbb(2, w_pills[3], 0, 6);
-                    break;
+                //BIT 0
                 case R.id.w_set_service_pills:
                     value = binding.wSetServicePills.isChecked();
                     writeS7.setBitAtDbb(0, value, 0, 5);
+                    writeS7.setBitAtDbb(0, value, 0, 6);
                     writeS7.setBitAtDbb(0, value, 0, 7);
                     break;
 
+                //BIT 1
+                case R.id.w_gen_bottles_pills:
+                    value = binding.wGenBottlesPills.isChecked();
+
+                    writeS7.setBitAtDbb(1, value, 0, 5);
+                    writeS7.setBitAtDbb(1, value, 0, 6);
+                    writeS7.setBitAtDbb(1, value, 0, 7);
+                    break;
+
+                //BIT 2
+                case R.id.w_reset_bottles_pills:
+                    value = binding.wResetBottlesPills.isChecked();
+                    writeS7.setBitAtDbb(2, value, 0, 5);
+                    writeS7.setBitAtDbb(2, value, 0, 6);
+                    writeS7.setBitAtDbb(2, value, 0, 7);
+                    break;
+
+                //BIT 3
+                case R.id.w_sw1_pills:
+                    value = binding.wSw1Pills.isChecked();
+                    writeS7.setBitAtDbb(3, value, 0, 5);
+                    writeS7.setBitAtDbb(3, value, 0, 6);
+                    writeS7.setBitAtDbb(3, value, 0, 7);
+                    break;
+
+                //BIT 4
+                case R.id.w_5_pills:
+                    value = binding.w5Pills.isChecked();
+                    writeS7.setBitAtDbb(4, value, 0, 5);
+                    writeS7.setBitAtDbb(4, value, 0, 6);
+                    writeS7.setBitAtDbb(4, value, 0, 7);
+                    break;
+
+                //BIT 5
+                case R.id.w_10_pills:
+                    value = binding.w10Pills.isChecked();
+                    writeS7.setBitAtDbb(5, value, 0, 5);
+                    writeS7.setBitAtDbb(5, value, 0, 6);
+                    writeS7.setBitAtDbb(5, value, 0, 7);
+                    break;
+
+                //BIT 6
+                case R.id.w_15_pills:
+                    value = binding.w15Pills.isChecked();
+                    writeS7.setBitAtDbb(6, value, 0, 5);
+                    writeS7.setBitAtDbb(6, value, 0, 6);
+                    writeS7.setBitAtDbb(6, value, 0, 7);
+                    break;
+
+                //BIT 7
+                case R.id.w_sw2_pills:
+                    value = binding.wSw2Pills.isChecked();
+                    writeS7.setBitAtDbb(7, value, 0, 5);
+                    writeS7.setBitAtDbb(7, value, 0, 6);
+                    writeS7.setBitAtDbb(7, value, 0, 7);
+                    break;
+
+                //BYTE
                 case R.id.w_byte_pills:
                     value = binding.wBytePills.isChecked();
                     writeS7.setByteAtDbb(value, 0, 8);
@@ -115,6 +156,7 @@ public class PlcPillsActivity extends AppCompatActivity {
     }
 
     protected void setSeekers() {
+        //INTEGER DBW18
         binding.wIntLabelPills.setText(getString(R.string.int_value, 0));
         binding.wIntPills.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
